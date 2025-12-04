@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.654846177730-sfjr43r474nq31tq5rno536rrb2ipjc2</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>mailto</string>
+		<string>whatsapp</string>
+	</array>
+	<key>NSAllowsArbitraryLo</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict/>
+	<key>UIApplicationSupportsIndirectCalls</key>
+	<true/>
+	<key>UIImageName</key>
+	<string>logodylan</string>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>White</string>
+		<key>UIImageName</key>
+		<string>logodylan</string>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,560 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA05180C2EDB5F8A001F20B7 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA05180B2EDB5F8A001F20B7 /* FirebaseAuth */; };
+		FA05180E2EDB5F8A001F20B7 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FA05180D2EDB5F8A001F20B7 /* FirebaseFirestore */; };
+		FA0518112EDB60A2001F20B7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = FA0518102EDB60A2001F20B7 /* GoogleSignIn */; };
+		FA0518132EDB7242001F20B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0518122EDB7242001F20B7 /* AppDelegate.swift */; };
+		FA0A15442ED781EC00AF332F /* DylanExpressApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A15432ED781EC00AF332F /* DylanExpressApp.swift */; };
+		FA0A15462ED781EC00AF332F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A15452ED781EC00AF332F /* ContentView.swift */; };
+		FA0A15482ED781F300AF332F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0A15472ED781F300AF332F /* Assets.xcassets */; };
+		FA0A154B2ED781F300AF332F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0A154A2ED781F300AF332F /* Preview Assets.xcassets */; };
+		FA4113E02EDA48A700CB2A5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4113DF2EDA48A700CB2A5D /* Theme.swift */; };
+		FA528AC82EDBD197006AA5A2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */; };
+		FA60EEE62EDA580B007EC497 /* TouristPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA60EEE52EDA580B007EC497 /* TouristPlaceView.swift */; };
+		FA60EEE92EDA91E3007EC497 /* CustomerSupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */; };
+		FA813C562ED8D617002318EF /* MyTripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C552ED8D617002318EF /* MyTripsView.swift */; };
+		FA813C592ED8D653002318EF /* SearchTicketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C582ED8D653002318EF /* SearchTicketsView.swift */; };
+		FA813C5B2ED8D68A002318EF /* BusSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */; };
+		FA813C5D2ED8D6A6002318EF /* BookingConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C5C2ED8D6A6002318EF /* BookingConfirmationView.swift */; };
+		FA813C602ED8D6DA002318EF /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C5F2ED8D6DA002318EF /* ProfileView.swift */; };
+		FA813C622ED8DDC7002318EF /* TicketDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C612ED8DDC7002318EF /* TicketDetailView.swift */; };
+		FA813C642ED8E0FE002318EF /* PaymentMethodsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C632ED8E0FE002318EF /* PaymentMethodsView.swift */; };
+		FA813C682ED8E1A5002318EF /* YapePaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C672ED8E1A5002318EF /* YapePaymentView.swift */; };
+		FA813C6A2ED8E1D8002318EF /* CardPaymentView .swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C692ED8E1D8002318EF /* CardPaymentView .swift */; };
+		FA813C6C2ED8E245002318EF /* CashPaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C6B2ED8E245002318EF /* CashPaymentView.swift */; };
+		FA813C702ED90278002318EF /* BookingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C6F2ED90278002318EF /* BookingData.swift */; };
+		FAE8503A2ED83BEE00D687BD /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE850392ED83BEE00D687BD /* AuthViewModel.swift */; };
+		FAE8503C2ED83C3900D687BD /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8503B2ED83C3900D687BD /* LoginView.swift */; };
+		FAE8503E2ED83C8000D687BD /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8503D2ED83C8000D687BD /* RegisterView.swift */; };
+		FAE850402ED8421600D687BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8503F2ED8421600D687BD /* HomeView.swift */; };
+		FAE850442ED84F6A00D687BD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE850432ED84F6900D687BD /* RootView.swift */; };
+		FAE8504A2ED8586500D687BD /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE850492ED8586500D687BD /* SplashView.swift */; };
+		FAFA680F2EDB4C75009E3BCF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA0518122EDB7242001F20B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA0A15402ED781EC00AF332F /* DylanExpress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DylanExpress.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0A15432ED781EC00AF332F /* DylanExpressApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DylanExpressApp.swift; sourceTree = "<group>"; };
+		FA0A15452ED781EC00AF332F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA0A15472ED781F300AF332F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA0A154A2ED781F300AF332F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FA4113DF2EDA48A700CB2A5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		FA60EEE52EDA580B007EC497 /* TouristPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristPlaceView.swift; sourceTree = "<group>"; };
+		FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSupportView.swift; sourceTree = "<group>"; };
+		FA813C552ED8D617002318EF /* MyTripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsView.swift; sourceTree = "<group>"; };
+		FA813C582ED8D653002318EF /* SearchTicketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTicketsView.swift; sourceTree = "<group>"; };
+		FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusSelectionView.swift; sourceTree = "<group>"; };
+		FA813C5C2ED8D6A6002318EF /* BookingConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationView.swift; sourceTree = "<group>"; };
+		FA813C5F2ED8D6DA002318EF /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		FA813C612ED8DDC7002318EF /* TicketDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDetailView.swift; sourceTree = "<group>"; };
+		FA813C632ED8E0FE002318EF /* PaymentMethodsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsView.swift; sourceTree = "<group>"; };
+		FA813C672ED8E1A5002318EF /* YapePaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YapePaymentView.swift; sourceTree = "<group>"; };
+		FA813C692ED8E1D8002318EF /* CardPaymentView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CardPaymentView .swift"; sourceTree = "<group>"; };
+		FA813C6B2ED8E245002318EF /* CashPaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashPaymentView.swift; sourceTree = "<group>"; };
+		FA813C6F2ED90278002318EF /* BookingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingData.swift; sourceTree = "<group>"; };
+		FAE850392ED83BEE00D687BD /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FAE8503B2ED83C3900D687BD /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		FAE8503D2ED83C8000D687BD /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		FAE8503F2ED8421600D687BD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		FAE850432ED84F6900D687BD /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		FAE850492ED8586500D687BD /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		FAE8504D2ED860D500D687BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA0A153D2ED781EC00AF332F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA05180C2EDB5F8A001F20B7 /* FirebaseAuth in Frameworks */,
+				FA05180E2EDB5F8A001F20B7 /* FirebaseFirestore in Frameworks */,
+				FA0518112EDB60A2001F20B7 /* GoogleSignIn in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA0518142EDB8B6F001F20B7 /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				FA4113DF2EDA48A700CB2A5D /* Theme.swift */,
+				FAE850432ED84F6900D687BD /* RootView.swift */,
+				FAE850492ED8586500D687BD /* SplashView.swift */,
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
+		FA0A15372ED781EC00AF332F = {
+			isa = PBXGroup;
+			children = (
+				FA0A15422ED781EC00AF332F /* DylanExpress */,
+				FA0A15412ED781EC00AF332F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA0A15412ED781EC00AF332F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A15402ED781EC00AF332F /* DylanExpress.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA0A15422ED781EC00AF332F /* DylanExpress */ = {
+			isa = PBXGroup;
+			children = (
+				FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */,
+				FA0518142EDB8B6F001F20B7 /* animation */,
+				FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */,
+				FA60EEE72EDA912F007EC497 /*  Customersupport */,
+				FA4383B22EDA28D4002D0680 /* Tourist */,
+				FA813C712ED91DB7002318EF /* login */,
+				FA813C662ED8E190002318EF /* pay */,
+				FA813C5E2ED8D6C5002318EF /* Profile */,
+				FA813C572ED8D638002318EF /* Booking */,
+				FA813C542ED8D5E8002318EF /* Home */,
+				FAE8504D2ED860D500D687BD /* Info.plist */,
+				FA0A15472ED781F300AF332F /* Assets.xcassets */,
+				FA0A15492ED781F300AF332F /* Preview Content */,
+			);
+			path = DylanExpress;
+			sourceTree = "<group>";
+		};
+		FA0A15492ED781F300AF332F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A154A2ED781F300AF332F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FA4383B22EDA28D4002D0680 /* Tourist */ = {
+			isa = PBXGroup;
+			children = (
+				FA60EEE52EDA580B007EC497 /* TouristPlaceView.swift */,
+			);
+			path = Tourist;
+			sourceTree = "<group>";
+		};
+		FA60EEE72EDA912F007EC497 /*  Customersupport */ = {
+			isa = PBXGroup;
+			children = (
+				FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */,
+			);
+			path = " Customersupport";
+			sourceTree = "<group>";
+		};
+		FA813C542ED8D5E8002318EF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FA0A15452ED781EC00AF332F /* ContentView.swift */,
+				FA0A15432ED781EC00AF332F /* DylanExpressApp.swift */,
+				FAE8503F2ED8421600D687BD /* HomeView.swift */,
+				FA813C552ED8D617002318EF /* MyTripsView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FA813C572ED8D638002318EF /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				FA813C6F2ED90278002318EF /* BookingData.swift */,
+				FA813C582ED8D653002318EF /* SearchTicketsView.swift */,
+				FA813C612ED8DDC7002318EF /* TicketDetailView.swift */,
+				FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */,
+				FA813C5C2ED8D6A6002318EF /* BookingConfirmationView.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		FA813C5E2ED8D6C5002318EF /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FA813C5F2ED8D6DA002318EF /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FA813C662ED8E190002318EF /* pay */ = {
+			isa = PBXGroup;
+			children = (
+				FA813C632ED8E0FE002318EF /* PaymentMethodsView.swift */,
+				FA813C672ED8E1A5002318EF /* YapePaymentView.swift */,
+				FA813C692ED8E1D8002318EF /* CardPaymentView .swift */,
+				FA813C6B2ED8E245002318EF /* CashPaymentView.swift */,
+			);
+			path = pay;
+			sourceTree = "<group>";
+		};
+		FA813C712ED91DB7002318EF /* login */ = {
+			isa = PBXGroup;
+			children = (
+				FAE850392ED83BEE00D687BD /* AuthViewModel.swift */,
+				FAE8503D2ED83C8000D687BD /* RegisterView.swift */,
+				FAE8503B2ED83C3900D687BD /* LoginView.swift */,
+				FA0518122EDB7242001F20B7 /* AppDelegate.swift */,
+			);
+			path = login;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA0A153F2ED781EC00AF332F /* DylanExpress */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA0A154E2ED781F300AF332F /* Build configuration list for PBXNativeTarget "DylanExpress" */;
+			buildPhases = (
+				FA0A153C2ED781EC00AF332F /* Sources */,
+				FA0A153D2ED781EC00AF332F /* Frameworks */,
+				FA0A153E2ED781EC00AF332F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DylanExpress;
+			packageProductDependencies = (
+				FA05180B2EDB5F8A001F20B7 /* FirebaseAuth */,
+				FA05180D2EDB5F8A001F20B7 /* FirebaseFirestore */,
+				FA0518102EDB60A2001F20B7 /* GoogleSignIn */,
+			);
+			productName = DylanExpress;
+			productReference = FA0A15402ED781EC00AF332F /* DylanExpress.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA0A15382ED781EC00AF332F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					FA0A153F2ED781EC00AF332F = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+				};
+			};
+			buildConfigurationList = FA0A153B2ED781EC00AF332F /* Build configuration list for PBXProject "DylanExpress" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA0A15372ED781EC00AF332F;
+			packageReferences = (
+				FA05180A2EDB5F8A001F20B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FA05180F2EDB60A2001F20B7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			productRefGroup = FA0A15412ED781EC00AF332F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA0A153F2ED781EC00AF332F /* DylanExpress */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA0A153E2ED781EC00AF332F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA0A154B2ED781F300AF332F /* Preview Assets.xcassets in Resources */,
+				FAFA680F2EDB4C75009E3BCF /* GoogleService-Info.plist in Resources */,
+				FA528AC82EDBD197006AA5A2 /* Launch Screen.storyboard in Resources */,
+				FA0A15482ED781F300AF332F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA0A153C2ED781EC00AF332F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA813C592ED8D653002318EF /* SearchTicketsView.swift in Sources */,
+				FA813C602ED8D6DA002318EF /* ProfileView.swift in Sources */,
+				FA813C6A2ED8E1D8002318EF /* CardPaymentView .swift in Sources */,
+				FA813C642ED8E0FE002318EF /* PaymentMethodsView.swift in Sources */,
+				FA0A15462ED781EC00AF332F /* ContentView.swift in Sources */,
+				FA4113E02EDA48A700CB2A5D /* Theme.swift in Sources */,
+				FAE8504A2ED8586500D687BD /* SplashView.swift in Sources */,
+				FAE8503E2ED83C8000D687BD /* RegisterView.swift in Sources */,
+				FA813C622ED8DDC7002318EF /* TicketDetailView.swift in Sources */,
+				FA813C6C2ED8E245002318EF /* CashPaymentView.swift in Sources */,
+				FA0A15442ED781EC00AF332F /* DylanExpressApp.swift in Sources */,
+				FA813C702ED90278002318EF /* BookingData.swift in Sources */,
+				FA813C682ED8E1A5002318EF /* YapePaymentView.swift in Sources */,
+				FA813C5D2ED8D6A6002318EF /* BookingConfirmationView.swift in Sources */,
+				FAE850402ED8421600D687BD /* HomeView.swift in Sources */,
+				FAE850442ED84F6A00D687BD /* RootView.swift in Sources */,
+				FA813C562ED8D617002318EF /* MyTripsView.swift in Sources */,
+				FAE8503C2ED83C3900D687BD /* LoginView.swift in Sources */,
+				FAE8503A2ED83BEE00D687BD /* AuthViewModel.swift in Sources */,
+				FA813C5B2ED8D68A002318EF /* BusSelectionView.swift in Sources */,
+				FA60EEE92EDA91E3007EC497 /* CustomerSupportView.swift in Sources */,
+				FA60EEE62EDA580B007EC497 /* TouristPlaceView.swift in Sources */,
+				FA0518132EDB7242001F20B7 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FA0A154C2ED781F300AF332F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA0A154D2ED781F300AF332F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA0A154F2ED781F300AF332F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DylanExpress/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DylanExpress/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DylanExpress necesita acceso a tu ubicación para brindarte un mejor servicio durante tus viajes.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "DylanExpress necesita tu ubicación para mostrar tu punto de origen y ofrecerte las mejores rutas de viaje.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dylanexpress.app.DylanExpress;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FA0A15502ED781F300AF332F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"DylanExpress/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DylanExpress/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DylanExpress necesita acceso a tu ubicación para brindarte un mejor servicio durante tus viajes.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "DylanExpress necesita tu ubicación para mostrar tu punto de origen y ofrecerte las mejores rutas de viaje.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dylanexpress.app.DylanExpress;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA0A153B2ED781EC00AF332F /* Build configuration list for PBXProject "DylanExpress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA0A154C2ED781F300AF332F /* Debug */,
+				FA0A154D2ED781F300AF332F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA0A154E2ED781F300AF332F /* Build configuration list for PBXNativeTarget "DylanExpress" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA0A154F2ED781F300AF332F /* Debug */,
+				FA0A15502ED781F300AF332F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA05180A2EDB5F8A001F20B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
+		FA05180F2EDB60A2001F20B7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA05180B2EDB5F8A001F20B7 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA05180A2EDB5F8A001F20B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		FA05180D2EDB5F8A001F20B7 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA05180A2EDB5F8A001F20B7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		FA0518102EDB60A2001F20B7 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA05180F2EDB60A2001F20B7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = FA0A15382ED781EC00AF332F /* Project object */;
+}
