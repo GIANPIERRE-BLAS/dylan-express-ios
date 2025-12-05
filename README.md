@@ -1,88 +1,168 @@
-# Dylan Express - iOS Mobile Application
-
 <div align="center">
-  
+
+# 🚐 Dylan Express
+
+### iOS Mobile Application for Interprovincial Transportation
+
 ![Swift](https://img.shields.io/badge/Swift-5.9-FA7343?style=for-the-badge&logo=swift&logoColor=white)
 ![iOS](https://img.shields.io/badge/iOS-15.0+-000000?style=for-the-badge&logo=apple&logoColor=white)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-0066CC?style=for-the-badge&logo=swift&logoColor=white)
 ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
-![License](https://img.shields.io/badge/License-Private-red?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Production-success?style=for-the-badge)
 
 **Transforming Interprovincial Transportation in La Libertad, Peru**
 
-[Features](#-key-features) • [Tech Stack](#️-technical-stack) • [Installation](#-installation) • [Screenshots](#-screenshots) • [Contact](#-contact)
+[📥 Download App](#-download) • [✨ Features](#-key-features) • [🛠️ Tech Stack](#️-technical-stack) • [📸 Screenshots](#-screenshots) • [📞 Contact](#-contact)
+
+---
+
+[![Download Dylan Express](https://img.shields.io/badge/📥_Download_App-iOS_15.0+-0066CC?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/GIANPIERRE-BLAS/dylan-express-ios/blob/main/Releases/DylanExpress.app.zip)
 
 </div>
 
 ---
 
+## 📥 Download
+
+<div align="center">
+
+### Get Dylan Express for iOS
+
+[![Download Latest Release](https://img.shields.io/badge/Download_v1.0.0-iOS_Application-blue?style=for-the-badge&logo=apple&logoColor=white)](https://github.com/GIANPIERRE-BLAS/dylan-express-ios/blob/main/Releases/DylanExpress.app.zip)
+
+**Current Version:** 1.0.0 | **Size:** ~50 MB | **Requires:** iOS 15.0+
+
+</div>
+
+### Installation Instructions
+
+1. **Download** the app from the link above
+2. **Extract** the ZIP file on your Mac
+3. **Drag** the app to your iOS Simulator or install via Xcode
+4. For physical devices, requires Apple Developer provisioning
+
+> **Note:** This is a development build. For App Store or TestFlight distribution, contact the developer.
+
+---
+
 ## 📖 Overview
 
-**Dylan Express** is a comprehensive iOS mobile solution revolutionizing interprovincial minivan transportation services in La Libertad, Peru. The application connects Trujillo with rural and urban communities across the region, streamlining the entire booking process while promoting sustainable local tourism development.
+**Dylan Express** is a comprehensive iOS mobile solution revolutionizing interprovincial minivan transportation services in La Libertad, Peru. The application seamlessly connects Trujillo with rural and urban communities across the region, streamlining the entire booking process while promoting sustainable local tourism development.
 
-### 🎯 Mission
+<div align="center">
 
-Dylan Express is dedicated to bridging the transportation gap between urban centers and highland communities, providing safe, efficient, and accessible services while fostering economic and social development through tourism promotion.
+### 🎯 Our Mission
+
+*Bridging the transportation gap between urban centers and highland communities through technology, providing safe, efficient, and accessible services while fostering economic and social development.*
+
+</div>
 
 ---
 
 ## ✨ Key Features
 
+<table>
+<tr>
+<td width="50%">
+
 ### 🎫 Smart Booking System
-- **Real-time Seat Management** - Live availability updates with instant synchronization
-- **Interactive Seat Selection** - Visual seat map interface for optimal user experience
-- **Multi-destination Support** - Flexible routing options across La Libertad
-- **Advanced Scheduling** - Precise date and time selection with calendar integration
-- **Instant Confirmation** - Immediate booking verification and digital receipts
+- ✅ **Real-time Seat Management**  
+  Live availability with instant sync
+- ✅ **Interactive Seat Selection**  
+  Visual seat map interface
+- ✅ **Multi-destination Support**  
+  Flexible routing across La Libertad
+- ✅ **Advanced Scheduling**  
+  Calendar-based date/time selection
+- ✅ **Instant Confirmation**  
+  Immediate booking verification
+
+</td>
+<td width="50%">
 
 ### 💳 Secure Payment Solutions
-- **Yape Integration** - Seamless digital wallet payments (Peru's leading payment platform)
-- **Multi-payment Options** - Card, cash, and digital payment methods
-- **Automated Verification** - Real-time payment confirmation system
-- **QR Ticketing** - Secure digital tickets with QR code validation
-- **Digital Receipts** - Comprehensive transaction history and documentation
+- ✅ **Yape Integration**  
+  Peru's leading digital wallet
+- ✅ **Multi-payment Options**  
+  Card, cash, and digital methods
+- ✅ **Automated Verification**  
+  Real-time payment confirmation
+- ✅ **QR Ticketing**  
+  Secure digital ticket validation
+- ✅ **Digital Receipts**  
+  Complete transaction history
+
+</td>
+</tr>
+<tr>
+<td width="50%">
 
 ### 🗺️ Tourism & Exploration
-- **Curated Packages** - Hand-selected tourism routes showcasing La Libertad's heritage
-- **Destination Guides** - Detailed information on cultural and natural attractions
-- **Group Bookings** - Special rates for group travel and tourism packages
-- **Custom Quotes** - Personalized destination planning and pricing
-- **Route Discovery** - Explore hidden gems in the La Libertad highlands
+- ✅ **Curated Packages**  
+  Hand-selected heritage routes
+- ✅ **Destination Guides**  
+  Cultural and natural attractions
+- ✅ **Group Bookings**  
+  Special rates for groups
+- ✅ **Custom Quotes**  
+  Personalized trip planning
+- ✅ **Route Discovery**  
+  Explore La Libertad highlands
+
+</td>
+<td width="50%">
 
 ### 👤 Enhanced User Experience
-- **Secure Authentication** - Firebase-powered user registration and login
-- **Travel History** - Complete booking records and trip management
-- **Smart Notifications** - Automated travel reminders (24h and 2h before departure)
-- **Profile Management** - Customizable user preferences and information
-- **In-app Support** - Direct customer service integration
+- ✅ **Secure Authentication**  
+  Firebase-powered security
+- ✅ **Travel History**  
+  Complete booking records
+- ✅ **Smart Notifications**  
+  24h & 2h travel reminders
+- ✅ **Profile Management**  
+  Customizable preferences
+- ✅ **In-app Support**  
+  Direct customer service
+
+</td>
+</tr>
+</table>
 
 ### 📞 24/7 Customer Support
-- **Comprehensive FAQ** - Self-service knowledge base
-- **Multi-channel Contact** - Phone, WhatsApp, and in-app messaging
-- **Clear Policies** - Transparent cancellation and refund guidelines
-- **Always Available** - Round-the-clock support for travelers
+- 📚 **Comprehensive FAQ** - Self-service knowledge base
+- 💬 **Multi-channel Contact** - Phone, WhatsApp, in-app messaging
+- 📋 **Clear Policies** - Transparent cancellation and refund guidelines
+- 🌐 **Always Available** - Round-the-clock support for travelers
 
 ---
 
 ## 🛠️ Technical Stack
 
-| Category | Technology |
-|----------|-----------|
-| **Language** | Swift 5.9 |
-| **UI Framework** | SwiftUI (iOS 15.0+) |
-| **Backend** | Firebase Firestore |
-| **Authentication** | Firebase Auth |
-| **Database** | Cloud Firestore |
-| **Payment Gateway** | Yape API Integration |
-| **QR Generation** | Core Image Framework |
-| **Push Notifications** | Firebase Cloud Messaging (FCM) |
-| **Analytics** | Firebase Analytics |
-| **Dependency Management** | CocoaPods / Swift Package Manager |
+<div align="center">
 
-### Architecture Pattern
-- **MVVM** (Model-View-ViewModel)
-- **Combine Framework** for reactive programming
-- **SwiftUI** for declarative UI development
+| Category | Technology | Description |
+|:--------:|:----------:|:------------|
+| **Language** | Swift 5.9 | Modern, safe, and fast |
+| **UI Framework** | SwiftUI | Declarative UI for iOS 15.0+ |
+| **Backend** | Firebase | Scalable cloud infrastructure |
+| **Authentication** | Firebase Auth | Secure user management |
+| **Database** | Cloud Firestore | Real-time NoSQL database |
+| **Payments** | Yape API | Peru's #1 digital wallet |
+| **QR Codes** | Core Image | Native iOS framework |
+| **Notifications** | FCM | Firebase Cloud Messaging |
+| **Analytics** | Firebase Analytics | User behavior tracking |
+| **Dependencies** | CocoaPods | Dependency management |
+
+</div>
+
+### 🏗️ Architecture Pattern
+
+```
+MVVM (Model-View-ViewModel)
+├── Combine Framework → Reactive programming
+├── SwiftUI → Declarative UI development
+└── Firebase SDK → Backend services
+```
 
 ---
 
@@ -90,283 +170,394 @@ Dylan Express is dedicated to bridging the transportation gap between urban cent
 
 ```
 DylanExpress/
+│
 ├── 📂 App/
-│   └── DylanExpressApp.swift          # App entry point
+│   └── DylanExpressApp.swift              # Application entry point
+│
 ├── 📂 Core/
-│   ├── Models/                        # Data models
-│   ├── Services/                      # Business logic & API calls
-│   ├── Utilities/                     # Helper functions
-│   └── Extensions/                    # Swift extensions
+│   ├── Models/                            # Data models & entities
+│   ├── Services/                          # Business logic & API services
+│   ├── Utilities/                         # Helper functions & extensions
+│   └── Extensions/                        # Swift standard library extensions
+│
 ├── 📂 Features/
-│   ├── Home/                          # Main dashboard
-│   ├── Authentication/                # Login & Registration
+│   ├── 🏠 Home/                           # Main dashboard & navigation
+│   ├── 🔐 Authentication/                 # Login & user registration
 │   │   └── login/
-│   ├── Booking/                       # Ticket booking flow
-│   ├── Payment/                       # Payment processing
+│   ├── 🎫 Booking/                        # Ticket search & booking flow
+│   ├── 💳 Payment/                        # Payment processing
 │   │   └── pay/
-│   ├── Profile/                       # User profile
-│   ├── Tourism/                       # Tourism packages
+│   ├── 👤 Profile/                        # User profile management
+│   ├── 🗺️ Tourism/                        # Tourism packages & destinations
 │   │   └── Tourist/
-│   ├── Support/                       # Customer service
+│   ├── 📞 Support/                        # Customer service features
 │   │   └── Customersupport/
-│   └── Animation/                     # Splash & transitions
+│   └── 🎬 Animation/                      # Splash screens & transitions
 │       └── animation/
+│
 ├── 📂 Resources/
-│   ├── Assets.xcassets/              # Images & icons
-│   └── GoogleService-Info.plist      # Firebase config
+│   ├── Assets.xcassets/                   # Images, icons & color assets
+│   └── GoogleService-Info.plist           # Firebase configuration
+│
+├── 📂 Releases/                           # 📦 Distribution builds
+│   └── DylanExpress.app.zip              # Latest iOS build
+│
 └── 📂 Tests/
-    ├── UnitTests/
-    └── UITests/
+    ├── UnitTests/                         # Unit test suite
+    └── UITests/                           # UI automation tests
 ```
 
 ---
 
-## 🚀 Installation
+## 🚀 Getting Started
 
 ### Prerequisites
 
-Ensure you have the following installed:
+Before you begin, ensure you have:
 
-- **macOS** 13.0 or later (Ventura+)
-- **Xcode** 15.0 or later
-- **iOS Device/Simulator** running iOS 15.0+
-- **CocoaPods** (for dependency management)
-- **Firebase Account** with active project
+- ✅ **macOS** 13.0+ (Ventura or later)
+- ✅ **Xcode** 15.0+ with Command Line Tools
+- ✅ **iOS Device/Simulator** running iOS 15.0+
+- ✅ **CocoaPods** installed (`sudo gem install cocoapods`)
+- ✅ **Firebase Account** with active project
+- ✅ **Apple Developer Account** (for device deployment)
 
-### Step-by-Step Setup
+### Installation Steps
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/GIANPIERRE-BLAS/dylan-express-ios.git
-   cd dylan-express-ios
-   ```
+```bash
+# 1️⃣ Clone the Repository
+git clone https://github.com/GIANPIERRE-BLAS/dylan-express-ios.git
+cd dylan-express-ios
 
-2. **Install Dependencies**
-   ```bash
-   # Using CocoaPods
-   pod install
-   
-   # Open the workspace (not the project)
-   open DylanExpress.xcworkspace
-   ```
+# 2️⃣ Install Dependencies
+pod install
 
-3. **Configure Firebase**
-   - Download `GoogleService-Info.plist` from your Firebase Console
-   - Drag the file into your Xcode project (ensure "Copy items if needed" is checked)
-   - Verify Firebase initialization in `DylanExpressApp.swift`
+# 3️⃣ Open Workspace (NOT the .xcodeproj)
+open DylanExpress.xcworkspace
 
-4. **Configure Yape Integration**
-   - Add your Yape API credentials to the project configuration
-   - Update the payment service configuration file
+# 4️⃣ Build and Run
+# Press ⌘ + R in Xcode
+```
 
-5. **Build and Run**
-   ```bash
-   # Press ⌘ + R in Xcode
-   # Or use command line
-   xcodebuild -workspace DylanExpress.xcworkspace -scheme DylanExpress -destination 'platform=iOS Simulator,name=iPhone 15'
-   ```
+### ⚙️ Configuration
 
-### Firebase Configuration Checklist
+#### Firebase Setup
 
-Ensure your Firebase project has:
+1. Download `GoogleService-Info.plist` from [Firebase Console](https://console.firebase.google.com/)
+2. Drag into Xcode project (ensure "Copy items if needed" is checked)
+3. Verify initialization in `DylanExpressApp.swift`
+
+#### Yape Integration
+
+1. Obtain Yape API credentials from [Yape Developer Portal](https://yape.com.pe/)
+2. Add credentials to project configuration
+3. Update payment service settings
+
+#### Firebase Checklist
 
 - ✅ **Authentication** - Email/Password provider enabled
-- ✅ **Firestore Database** - Production mode with security rules
-- ✅ **Cloud Messaging** - APNs certificates configured
-- ✅ **Cloud Functions** - Payment processing functions deployed
-- ✅ **Analytics** - Data collection enabled
+- ✅ **Firestore Database** - Production mode configured
+- ✅ **Cloud Messaging** - APNs certificates uploaded
+- ✅ **Cloud Functions** - Payment webhooks deployed
+- ✅ **Analytics** - Data collection activated
 
 ---
 
 ## 📸 Screenshots
 
-### Authentication & Onboarding
-<p align="center">
-  <img src="screenshots/iniciodylan.png" width="30%" alt="Splash Screen - Dylan Express Branding"/>
-  <img src="screenshots/logindylan.png" width="30%" alt="Login Screen - Secure Authentication"/>
-  <img src="screenshots/registrodylan.png" width="30%" alt="Registration - New User Onboarding"/>
-</p>
+<div align="center">
 
-### Main Interface & Navigation
-<p align="center">
-  <img src="screenshots/homedylan.png" width="30%" alt="Home Dashboard - Quick Access"/>
-  <img src="screenshots/turistdylan.png" width="30%" alt="Tourism Packages - Discover La Libertad"/>
-  <img src="screenshots/minivansdyaln.png" width="30%" alt="Vehicle Selection - Choose Your Ride"/>
-</p>
+### 🔐 Authentication & Onboarding
 
-### Booking Experience
-<p align="center">
-  <img src="screenshots/ticketdylan.png" width="30%" alt="Ticket Search - Real-time Availability"/>
-</p>
+<img src="screenshots/iniciodylan.png" width="28%" alt="Splash Screen"/>
+<img src="screenshots/logindylan.png" width="28%" alt="Login"/>
+<img src="screenshots/registrodylan.png" width="28%" alt="Registration"/>
 
-### Payment Methods
-<p align="center">
-  <img src="screenshots/yapedylan.png" width="30%" alt="Yape Payment - Digital Wallet"/>
-  <img src="screenshots/carddylan.png" width="30%" alt="Card Payment - Secure Processing"/>
-  <img src="screenshots/cahsdylan.png" width="30%" alt="Cash Payment - Agency Pickup"/>
-</p>
+*Splash Screen • Secure Login • User Registration*
 
-### User Services
-<p align="center">
-  <img src="screenshots/soport.png" width="30%" alt="Customer Support - 24/7 Assistance"/>
-  <img src="screenshots/profiledylan.png" width="30%" alt="User Profile - Account Management"/>
-</p>
+---
+
+### 🏠 Main Interface & Navigation
+
+<img src="screenshots/homedylan.png" width="28%" alt="Home"/>
+<img src="screenshots/turistdylan.png" width="28%" alt="Tourism"/>
+<img src="screenshots/minivansdyaln.png" width="28%" alt="Vehicles"/>
+
+*Home Dashboard • Tourism Packages • Vehicle Selection*
+
+---
+
+### 🎫 Booking Experience
+
+<img src="screenshots/ticketdylan.png" width="28%" alt="Ticket Search"/>
+
+*Real-time Ticket Search & Booking*
+
+---
+
+### 💳 Payment Methods
+
+<img src="screenshots/yapedylan.png" width="28%" alt="Yape"/>
+<img src="screenshots/carddylan.png" width="28%" alt="Card"/>
+<img src="screenshots/cahsdylan.png" width="28%" alt="Cash"/>
+
+*Yape Digital Wallet • Card Payment • Cash Options*
+
+---
+
+### 👤 User Services
+
+<img src="screenshots/soport.png" width="28%" alt="Support"/>
+<img src="screenshots/profiledylan.png" width="28%" alt="Profile"/>
+
+*24/7 Customer Support • Profile Management*
+
+</div>
 
 ---
 
 ## 🎯 Project Impact
 
-### Digital Transformation
-Dylan Express represents a significant digital transformation initiative, bringing modern technology to traditionally underserved transportation sectors in Peru's highland regions.
+<div align="center">
+
+### 🌟 Digital Transformation Initiative
+
+*Bringing modern technology to traditionally underserved transportation sectors in Peru's highland regions*
+
+</div>
 
 ### Key Objectives
-- ✅ **Digitalize Operations** - Move from manual to automated booking systems
-- ✅ **Reduce Wait Times** - Eliminate long queues at physical agencies
-- ✅ **Real-time Updates** - Provide instant seat availability information
-- ✅ **Tourism Promotion** - Showcase and preserve La Libertad's cultural heritage
-- ✅ **Improve Accessibility** - Make transportation services available to everyone
 
-### Social Impact
-- **Community Connection** - Bridging urban-rural divides
-- **Economic Development** - Supporting local tourism economies
-- **Rural Accessibility** - Providing reliable transportation to remote areas
-- **Cultural Preservation** - Promoting highland communities and traditions
+| Objective | Impact |
+|-----------|--------|
+| 🔄 **Digitalize Operations** | Transform manual booking to automated systems |
+| ⏱️ **Reduce Wait Times** | Eliminate long queues at physical agencies |
+| 📊 **Real-time Updates** | Provide instant seat availability information |
+| 🏛️ **Tourism Promotion** | Showcase La Libertad's cultural heritage |
+| ♿ **Improve Accessibility** | Make services available to all communities |
+
+### 🌍 Social Impact
+
+<table>
+<tr>
+<td width="50%">
+
+**Community Development**
+- 🤝 Bridging urban-rural divides
+- 💼 Supporting local economies
+- 🚐 Reliable transportation access
+- 📱 Digital inclusion initiatives
+
+</td>
+<td width="50%">
+
+**Cultural Preservation**
+- 🏔️ Promoting highland communities
+- 🎭 Preserving local traditions
+- 🌾 Supporting rural tourism
+- 🏛️ Cultural heritage awareness
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 👥 Target Audience
 
-| User Segment | Needs & Benefits |
-|-------------|------------------|
-| **Local Residents** | Reliable daily transportation between Trujillo and rural communities |
-| **Tourists** | Easy access to explore La Libertad's cultural and natural attractions |
-| **Business Travelers** | Professional, punctual service for regional business needs |
-| **Families** | Safe, comfortable travel for visiting relatives in highland areas |
+| 👤 User Segment | 🎯 Needs & Benefits |
+|----------------|---------------------|
+| **Local Residents** | Reliable daily transportation between Trujillo and rural communities with digital convenience |
+| **Tourists** | Easy access to explore La Libertad's cultural and natural attractions with guided routes |
+| **Business Travelers** | Professional, punctual service for regional business needs with confirmed bookings |
+| **Families** | Safe, comfortable travel for visiting relatives in highland areas with group discounts |
 
 ---
 
 ## 🗺️ Development Roadmap
 
-### ✅ Completed (Phase 1)
+### ✅ Phase 1: Core Platform (Completed)
+
 - [x] User authentication system with Firebase Auth
 - [x] Comprehensive ticket search and booking functionality
-- [x] Yape payment integration
-- [x] QR code generation and validation
+- [x] Yape payment gateway integration
+- [x] QR code generation and validation system
 - [x] Tourism packages catalog and discovery
-- [x] Push notification system
-- [x] User profile management
-- [x] Customer support integration
+- [x] Push notification infrastructure (FCM)
+- [x] User profile management dashboard
+- [x] Customer support integration (multi-channel)
 
-### 🚧 In Progress (Phase 2)
-- [ ] Multi-language support (Spanish/English/Quechua)
-- [ ] Apple Pay integration
-- [ ] Offline booking capability
-- [ ] Advanced analytics dashboard
-- [ ] Rating and review system
+### 🚧 Phase 2: Enhanced Features (In Progress)
 
-### 🔮 Future Enhancements (Phase 3)
-- [ ] AI-powered route recommendations
-- [ ] Real-time vehicle tracking (GPS)
-- [ ] In-app chat with drivers
-- [ ] Loyalty rewards program
-- [ ] Integration with other payment providers
-- [ ] Augmented reality tourism guides
-- [ ] Carbon footprint tracking
+- [ ] **Multi-language Support** - Spanish, English, Quechua
+- [ ] **Apple Pay Integration** - Native iOS payment method
+- [ ] **Offline Booking** - Limited offline functionality
+- [ ] **Analytics Dashboard** - User behavior insights
+- [ ] **Rating System** - Trip and driver reviews
+
+### 🔮 Phase 3: Advanced Features (Planned)
+
+- [ ] **AI Route Recommendations** - Machine learning-powered suggestions
+- [ ] **Real-time GPS Tracking** - Live vehicle location
+- [ ] **In-app Driver Chat** - Direct communication channel
+- [ ] **Loyalty Program** - Points and rewards system
+- [ ] **Additional Payment Providers** - Plin, Tunki, cards
+- [ ] **AR Tourism Guides** - Augmented reality experiences
+- [ ] **Carbon Footprint Tracking** - Environmental impact metrics
 
 ---
 
-## 🧪 Testing
+## 🧪 Testing & Quality Assurance
+
+### Running Tests
 
 ```bash
-# Run unit tests
-xcodebuild test -workspace DylanExpress.xcworkspace -scheme DylanExpress -destination 'platform=iOS Simulator,name=iPhone 15'
+# Unit Tests
+xcodebuild test -workspace DylanExpress.xcworkspace \
+  -scheme DylanExpress \
+  -destination 'platform=iOS Simulator,name=iPhone 15'
 
-# Run UI tests
-xcodebuild test -workspace DylanExpress.xcworkspace -scheme DylanExpressUITests -destination 'platform=iOS Simulator,name=iPhone 15'
+# UI Tests
+xcodebuild test -workspace DylanExpress.xcworkspace \
+  -scheme DylanExpressUITests \
+  -destination 'platform=iOS Simulator,name=iPhone 15'
 ```
 
-### Code Coverage
-- Target: 80% minimum coverage
-- Current: [In Development]
+### Quality Metrics
+
+| Metric | Target | Status |
+|--------|--------|--------|
+| Code Coverage | 80%+ | 🟡 In Progress |
+| UI Test Coverage | 70%+ | 🟡 In Progress |
+| Crash-free Rate | 99.5%+ | 🟢 Production Ready |
+| Performance | < 2s load time | 🟢 Optimized |
 
 ---
 
 ## 🤝 Contributing
 
-This is a private project. If you're interested in contributing or collaborating, please reach out directly.
+This is a **private proprietary project**. For collaboration inquiries:
 
-### Development Guidelines
-- Follow Swift API Design Guidelines
-- Maintain comprehensive documentation
-- Write unit tests for new features
-- Follow MVVM architecture pattern
-- Use SwiftLint for code consistency
+### Development Standards
+
+- ✅ Follow [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
+- ✅ Maintain comprehensive inline documentation
+- ✅ Write unit tests for all new features (80%+ coverage)
+- ✅ Adhere to MVVM architecture pattern
+- ✅ Use SwiftLint for code consistency
+- ✅ Submit detailed pull requests with screenshots
+
+### Code Style
+
+```swift
+// Example: Follow these conventions
+class BookingViewModel: ObservableObject {
+    @Published private(set) var bookings: [Booking] = []
+    
+    func fetchBookings() async throws {
+        // Implementation
+    }
+}
+```
 
 ---
 
 ## 📄 License
 
-**Private & Proprietary** - All rights reserved.
+<div align="center">
 
-This project is the intellectual property of Dylan Express and Gianpierre Blas. Unauthorized copying, distribution, or use is strictly prohibited.
+**Private & Proprietary License**
+
+This project is the intellectual property of **Dylan Express** and **Gianpierre Blas**.  
+All rights reserved. Unauthorized copying, distribution, or use is strictly prohibited.
+
+© 2025 Dylan Express. All Rights Reserved.
+
+</div>
 
 ---
 
 ## 👨‍💻 Developer
 
 <div align="center">
-  <img src="https://github.com/GIANPIERRE-BLAS.png" width="100" height="100" style="border-radius: 50%;" alt="Gianpierre Blas"/>
-  
-  ### Gianpierre Blas
-  **iOS Developer | Software Engineer**
-  
-  Passionate about creating impactful mobile solutions that bridge technology and social development.
-  
-  [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GIANPIERRE-BLAS)
-  [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:gianpierreblasflores235@gmail.com)
-  [![Phone](https://img.shields.io/badge/Phone-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](tel:+51928489371)
-  
+
+<img src="https://github.com/GIANPIERRE-BLAS.png" width="120" height="120" style="border-radius: 50%; border: 3px solid #0066CC;" alt="Gianpierre Blas"/>
+
+### Gianpierre Blas
+**iOS Developer | Software Engineer**
+
+*Passionate about creating impactful mobile solutions that bridge technology and social development.*
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GIANPIERRE-BLAS)
+[![Email](https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:gianpierreblasflores235@gmail.com)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/51928489371)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/gianpierre-blas)
+
 </div>
 
 ---
 
 ## 📞 Contact
 
-### Dylan Express Transportation
+<div align="center">
 
-**Corporate Inquiries:**
-- 📧 Email: gianpierreblasflores235@gmail.com
-- 📱 Phone: +51 928 489 371
-- 🌐 Website: [Coming Soon]
-- 📍 Location: Trujillo, La Libertad, Peru
+### 🚐 Dylan Express Transportation Services
 
-### For Support
-- 💬 In-app customer support
-- 📞 24/7 hotline available
-- 💬 WhatsApp: +51 928 489 371
+</div>
+
+<table>
+<tr>
+<td width="50%">
+
+**Corporate Inquiries**
+- 📧 **Email:** gianpierreblasflores235@gmail.com
+- 📱 **Phone:** +51 928 489 371
+- 📍 **Location:** Trujillo, La Libertad, Peru
+
+</td>
+<td width="50%">
+
+**Customer Support**
+- 💬 **In-app Support** - Available 24/7
+- 📞 **Hotline** - +51 928 489 371
+- 💬 **WhatsApp** - [Click to Chat](https://wa.me/51928489371)
+- 📧 **Email** - support@dylanexpress.pe
+
+</td>
+</tr>
+</table>
 
 ---
 
 ## 🙏 Acknowledgments
 
-Special thanks to:
-- The communities of La Libertad's highland regions
-- Dylan Express transportation team
-- Beta testers and early adopters
-- Firebase and Apple developer communities
+Special recognition to:
+
+- 🏔️ **Highland Communities** of La Libertad for their trust and collaboration
+- 🚐 **Dylan Express Team** for operational excellence and dedication
+- 🧪 **Beta Testers** for invaluable feedback during development
+- 🔥 **Firebase Community** for technical support and resources
+- 🍎 **Apple Developer Community** for iOS development guidance
 
 ---
 
 <div align="center">
 
-**Made with ❤️ in Trujillo, La Libertad, Peru**
+### Made with ❤️ in Trujillo, La Libertad, Peru
 
 *Connecting Communities • Empowering Tourism • Building Futures*
 
-![Peru](https://img.shields.io/badge/Peru-🇵🇪-red?style=for-the-badge)
+![Peru](https://img.shields.io/badge/🇵🇪_Peru-Proud-D91023?style=for-the-badge)
+![La Libertad](https://img.shields.io/badge/La_Libertad-Region-1E40AF?style=for-the-badge)
 
 ---
 
-© 2025 Dylan Express. All Rights Reserved.
+**⭐ Star this repository if you find it helpful!**
+
+[![Download App](https://img.shields.io/badge/📥_Download-Dylan_Express-0066CC?style=for-the-badge)](https://github.com/GIANPIERRE-BLAS/dylan-express-ios/blob/main/Releases/DylanExpress.app.zip)
+
+---
+
+**Dylan Express** • Version 1.0.0 • iOS 15.0+ • © 2025 All Rights Reserved
 
 </div>
