@@ -367,6 +367,6 @@ Special thanks to:
 
 ---
 
-© 2024 Dylan Express. All Rights Reserved.
+© 2025 Dylan Express. All Rights Reserved.
 
 </div>
