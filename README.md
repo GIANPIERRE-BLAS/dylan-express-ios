@@ -12,7 +12,7 @@
 
 **Transforming Interprovincial Transportation in La Libertad, Peru**
 
-[📥 Download App](#-download) • [✨ Features](#-key-features) • [🛠️ Tech Stack](#️-technical-stack) • [📸 Screenshots](#-screenshots) • [📞 Contact](#-contact)
+[📥 Download App](#-download) • [✨ Features](#-key-features) • [🛠️ Tech Stack](#️-technical-stack) • [📞 Contact](#-contact)
 
 ---
 
@@ -115,23 +115,32 @@
 ### 👤 Enhanced User Experience
 - ✅ **Secure Authentication**  
   Firebase-powered security
-- ✅ **Travel History**  
-  Complete booking records
+- ✅ **Travel History & Favorites**  
+  Complete booking records with favorites
 - ✅ **Smart Notifications**  
   24h & 2h travel reminders
 - ✅ **Profile Management**  
-  Customizable preferences
-- ✅ **In-app Support**  
-  Direct customer service
+  Photo upload and statistics
+- ✅ **Real-time Trip Tracking**  
+  Live GPS journey monitoring
 
 </td>
 </tr>
 </table>
 
+### 🆕 Advanced Trip Management
+- 📊 **Trip Status Tracking** - Automatic categorization (paid, pending, completed, cancelled)
+- ⭐ **Favorites System** - Save preferred routes with instant sync
+- 🚫 **Professional Cancellation** - Status-based system with full audit trail
+- 📜 **History Toggle** - View active and cancelled trips separately
+- 🎯 **Contextual Actions** - Dynamic buttons based on trip status
+- ⏱️ **Real-time Tracking** - Live trip simulation with ETA calculation
+- ⭐ **Trip Rating System** - Post-trip evaluation and feedback
+
 ### 📞 24/7 Customer Support
 - 📚 **Comprehensive FAQ** - Self-service knowledge base
 - 💬 **Multi-channel Contact** - Phone, WhatsApp, in-app messaging
-- 📋 **Clear Policies** - Transparent cancellation and refund guidelines
+- 📋 **Complaint Management** - Digital complaints book with tracking
 - 🌐 **Always Available** - Round-the-clock support for travelers
 
 ---
@@ -145,8 +154,10 @@
 | **Language** | Swift 5.9 | Modern, safe, and fast |
 | **UI Framework** | SwiftUI | Declarative UI for iOS 15.0+ |
 | **Backend** | Firebase | Scalable cloud infrastructure |
-| **Authentication** | Firebase Auth | Secure user management |
-| **Database** | Cloud Firestore | Real-time NoSQL database |
+| **Authentication** | Firebase Auth | Secure user management with Google Sign-In |
+| **Database** | Cloud Firestore | Real-time NoSQL database with listeners |
+| **Storage** | Firebase Storage | Profile photos and media |
+| **Maps** | MapKit | Native iOS mapping and location |
 | **Payments** | Yape API | Peru's #1 digital wallet |
 | **QR Codes** | Core Image | Native iOS framework |
 | **Notifications** | FCM | Firebase Cloud Messaging |
@@ -156,44 +167,75 @@
 </div>
 
 ### 🏗️ Architecture Pattern
-
 ```
 MVVM (Model-View-ViewModel)
 ├── Combine Framework → Reactive programming
 ├── SwiftUI → Declarative UI development
-└── Firebase SDK → Backend services
+├── @AppStorage → Theme persistence
+└── Firebase SDK → Backend services with real-time sync
 ```
 
 ---
 
 ## 📱 Project Structure
-
 ```
 DylanExpress/
 │
 ├── 📂 App/
-│   └── DylanExpressApp.swift              # Application entry point
+│   └── DylanExpressApp.swift              # Application entry point with Firebase
 │
 ├── 📂 Core/
 │   ├── Models/                            # Data models & entities
+│   │   ├── BookingData.swift             # Booking model with status management
+│   │   ├── User.swift                    # User model with statistics
+│   │   └── TouristPlace.swift            # Tourism destinations
 │   ├── Services/                          # Business logic & API services
+│   │   ├── FirebaseService.swift         # Firestore operations
+│   │   ├── AuthService.swift             # Authentication flow
+│   │   └── PaymentService.swift          # Payment processing
 │   ├── Utilities/                         # Helper functions & extensions
+│   │   ├── QRGenerator.swift             # Native QR code generation
+│   │   └── DateFormatter+Extensions.swift
 │   └── Extensions/                        # Swift standard library extensions
+│       └── Color+Extensions.swift         # Theme colors
 │
 ├── 📂 Features/
 │   ├── 🏠 Home/                           # Main dashboard & navigation
+│   │   ├── HomeView.swift                # Tab Bar with 4 tabs
+│   │   ├── SearchView.swift              # Real-time route search
+│   │   └── MyTripsView.swift             # Trip management with history
 │   ├── 🔐 Authentication/                 # Login & user registration
-│   │   └── login/
+│   │   ├── LoginView.swift               # Email/Password & Google Sign-In
+│   │   ├── RegisterView.swift            # User registration with validation
+│   │   └── AuthViewModel.swift           # Authentication logic
 │   ├── 🎫 Booking/                        # Ticket search & booking flow
+│   │   ├── SeatMapView.swift             # Interactive 4x4 seat selection
+│   │   ├── BookingConfirmationView.swift # Booking summary
+│   │   └── TicketDetailView.swift        # QR code ticket display
 │   ├── 💳 Payment/                        # Payment processing
-│   │   └── pay/
+│   │   ├── PaymentMethodsView.swift      # Payment options selector
+│   │   ├── YapePaymentView.swift         # Yape simulation
+│   │   ├── CardPaymentView.swift         # Card payment form
+│   │   └── CashPaymentView.swift         # Cash reservation system
 │   ├── 👤 Profile/                        # User profile management
+│   │   ├── ProfileView.swift             # Profile with photo & statistics
+│   │   ├── EditProfileView.swift         # Profile editing
+│   │   ├── FavoritesView.swift           # Favorite trips management
+│   │   └── ThemeToggle.swift             # Dark/Light mode control
 │   ├── 🗺️ Tourism/                        # Tourism packages & destinations
-│   │   └── Tourist/
+│   │   ├── TouristPlacesView.swift       # Curated destinations gallery
+│   │   ├── TouristDetailView.swift       # Destination information
+│   │   └── QuoteRequestView.swift        # Custom tour quotes
+│   ├── 📍 Tracking/                       # Real-time trip tracking
+│   │   ├── TripSimulationView.swift      # Live GPS tracking simulation
+│   │   ├── MapView.swift                 # MapKit integration
+│   │   └── TripRatingView.swift          # Post-trip evaluation
 │   ├── 📞 Support/                        # Customer service features
-│   │   └── Customersupport/
+│   │   ├── SupportView.swift             # FAQ and contact options
+│   │   ├── ComplaintsBookView.swift      # Digital complaints form
+│   │   └── LocationView.swift            # Agency location with map
 │   └── 🎬 Animation/                      # Splash screens & transitions
-│       └── animation/
+│       └── SplashScreenView.swift        # Animated splash
 │
 ├── 📂 Resources/
 │   ├── Assets.xcassets/                   # Images, icons & color assets
@@ -223,7 +265,6 @@ Before you begin, ensure you have:
 - ✅ **Apple Developer Account** (for device deployment)
 
 ### Installation Steps
-
 ```bash
 # 1️⃣ Clone the Repository
 git clone https://github.com/GIANPIERRE-BLAS/dylan-express-ios.git
@@ -255,122 +296,53 @@ open DylanExpress.xcworkspace
 
 #### Firebase Checklist
 
-- ✅ **Authentication** - Email/Password provider enabled
-- ✅ **Firestore Database** - Production mode configured
+- ✅ **Authentication** - Email/Password & Google Sign-In enabled
+- ✅ **Firestore Database** - Production mode with indexes configured
+- ✅ **Firestore Collections** - bookings, favorites, ratings, users, complaints
+- ✅ **Cloud Storage** - Profile photos bucket configured
 - ✅ **Cloud Messaging** - APNs certificates uploaded
 - ✅ **Cloud Functions** - Payment webhooks deployed
 - ✅ **Analytics** - Data collection activated
 
 ---
 
-## 📸 Screenshots
+## 🎯 Core Functionalities
 
-<div align="center">
+### 1. **Complete Authentication System**
+Registration and login via Firebase Authentication with form validation, active session management with automatic persistence, Google Sign-In integration, and password recovery module with email confirmation. Real-time validations with regex, custom error messages in Spanish, and loading states with native ProgressView. All screens fully adapt to light and dark themes, configurable from user profile with instant global updates.
 
-### 🔐 Authentication & Onboarding
+### 2. **Real-time Search and Booking Engine**
+Dynamic Firestore queries for available routes from Trujillo-Agency to 15 destinations in La Libertad, with date selector and hourly scheduling every 2 hours from 06:00 AM to 08:00 PM. Interactive 4x4 seat map with color coding. Instant availability synchronization between multiple users via Firestore listeners. Special discounts section with visual cards and confirmation panel with seat number and total price. Interface adaptable to light and dark themes, configurable from profile.
 
-<img src="screenshots/iniciodylan.png" width="28%" alt="Splash Screen"/>
-<img src="screenshots/logindylan.png" width="28%" alt="Login"/>
-<img src="screenshots/registrodylan.png" width="28%" alt="Registration"/>
+### 3. **Simulated Payment System (Three Methods)**
+Simulated Yape with official flow interface, card simulation with format validation, and cash with pending reservation system, unique 8-character alphanumeric reservation code, and automatic 24-hour expiration management. All screens display trip summary and price, adapted to light/dark theme configurable from profile.
 
-*Splash Screen • Secure Login • User Registration*
+### 4. **Native QR Code Generator**
+Implementation using Swift Core Image for local QR generation without external dependencies, encrypting complete trip information in JSON format. "My Ticket" screen with route header, trip data with iconography, visible alphanumeric reservation code, high-quality QR optimized for scanning, differentiated status badge, and native iOS share sheet functionality.
 
----
+### 5. **Tourism Services Module**
+Professional gallery of La Libertad tourist destinations with high-quality image cards, visual discount badges, complete tourist information including location and description. Transparent pricing table showing original price, discount, and final price per person. Comprehensive quote request form with DatePicker, TimePicker, people selector, and optional comments, with structured Firestore storage. Requested tours appear in "My Trips" as separate category.
 
-### 🏠 Main Interface & Navigation
+### 6. **Trip Management System**
+Vista "Mis Viajes" con sistema de categorización automática por estados: confirmados, pendientes, completados y cancelados. Toggle "Historial" en barra de navegación para visualizar viajes cancelados. Cards informativas con badge de estado visual, botón de favorito con sincronización instantánea, y botón "Cancelar Viaje" exclusivo para reservas pendientes con alerta de confirmación. Funcionalidad de cancelación profesional que actualiza el estado a "cancelled" y registra timestamp de cancelación en lugar de eliminar el documento, manteniendo trazabilidad completa. Viajes cancelados se visualizan con opacidad reducida, borde distintivo, y sin botones de acción. Botones contextuales según estado: Ver Boleto, Compartir, Pagar Ahora, Pagar en Agencia, Iniciar Viaje, con actualización en tiempo real mediante Firestore y empty state diferenciado para viajes activos y cancelados.
 
-<img src="screenshots/homedylan.png" width="28%" alt="Home"/>
-<img src="screenshots/turistdylan.png" width="28%" alt="Tourism"/>
-<img src="screenshots/minivansdyaln.png" width="28%" alt="Vehicles"/>
+### 7. **Real-time Trip Simulation System**
+Advanced tracking module via MapKit with custom markers for origin, destination, and vehicle with pulse animation. Double route line implementation: complete dotted line and progressive solid line for current travel. Floating header with glassmorphism effect showing total distance and time, information card with real-time ETA chips and visual progress bar. Smooth 15-second animation with 33 FPS update via 150 interpolation points, precise real-time calculations with CLLocation for distance and ETA, floating zoom controls, and completion panel with animated checkmark and "Rate Trip" button. Interface adaptable to light/dark theme with adjusted glassmorphism, configurable from profile.
 
-*Home Dashboard • Tourism Packages • Vehicle Selection*
+### 8. **Trip Rating System**
+Post-trip screen with interactive 5-star system with scale animation and dynamic text according to rating with color coding. Selectable quick comment chips for agile evaluation. Optional free comment field via TextEditor for detailed feedback. Structured Firebase storage with complete evaluation information, animated success overlay with 2-second auto-close, and permanent trip status update after rating to avoid duplicates.
 
----
+### 9. **Customer Support System**
+Comprehensive support module with FAQ section presenting frequent questions about app usage and payment methods in expandable accordion format. Formal digital Complaints Book with complete form including complaint type categorization, optional reference number, user identification data, and detailed description field with Firestore storage for administrative traceability. Direct contact buttons implemented with native iOS systems for communication via WhatsApp, phone call, and email. Physical location section with main agency address, complete business hours, integrated interactive map, and direct access to maps app with automatic navigation.
 
-### 🎫 Booking Experience
+### 10. **Routes Information Portal**
+Comprehensive informational catalog of 15 operational routes available from Trujillo-Agency to strategic destinations distributed in La Libertad. Each route presents detailed commercial information: destination identification, approximate distance, estimated travel time, available departure schedules, and fare per passenger. Search system via native selector with complete list of destinations with fluid scroll and visual selection confirmation. Direct integration with main search module and special discounts system for optimized booking flow.
 
-<img src="screenshots/ticketdylan.png" width="28%" alt="Ticket Search"/>
+### 11. **Profile Management System**
+Professional profile screen allowing full visualization and editing of user personal information with immediate bidirectional synchronization to Firebase Authentication and Firestore. Profile photo management with change functionality via native image picker and optimized storage. Statistics card with dynamic counters of total trips and favorites updated in real-time from database. Favorites trips section with preview and access to complete collection. Configuration panel with access to profile editing via pre-loaded forms with validation, visual theme control with instant global update, notifications and language management, and logout functionality with confirmation and secure stored data cleanup.
 
-*Real-time Ticket Search & Booking*
-
----
-
-### 💳 Payment Methods
-
-<img src="screenshots/yapedylan.png" width="28%" alt="Yape"/>
-<img src="screenshots/carddylan.png" width="28%" alt="Card"/>
-<img src="screenshots/cahsdylan.png" width="28%" alt="Cash"/>
-
-*Yape Digital Wallet • Card Payment • Cash Options*
-
----
-
-### 👤 User Services
-
-<img src="screenshots/soport.png" width="28%" alt="Support"/>
-<img src="screenshots/profiledylan.png" width="28%" alt="Profile"/>
-
-*24/7 Customer Support • Profile Management*
-
-</div>
-
----
-
-## 🎯 Project Impact
-
-<div align="center">
-
-### 🌟 Digital Transformation Initiative
-
-*Bringing modern technology to traditionally underserved transportation sectors in Peru's highland regions*
-
-</div>
-
-### Key Objectives
-
-| Objective | Impact |
-|-----------|--------|
-| 🔄 **Digitalize Operations** | Transform manual booking to automated systems |
-| ⏱️ **Reduce Wait Times** | Eliminate long queues at physical agencies |
-| 📊 **Real-time Updates** | Provide instant seat availability information |
-| 🏛️ **Tourism Promotion** | Showcase La Libertad's cultural heritage |
-| ♿ **Improve Accessibility** | Make services available to all communities |
-
-### 🌍 Social Impact
-
-<table>
-<tr>
-<td width="50%">
-
-**Community Development**
-- 🤝 Bridging urban-rural divides
-- 💼 Supporting local economies
-- 🚐 Reliable transportation access
-- 📱 Digital inclusion initiatives
-
-</td>
-<td width="50%">
-
-**Cultural Preservation**
-- 🏔️ Promoting highland communities
-- 🎭 Preserving local traditions
-- 🌾 Supporting rural tourism
-- 🏛️ Cultural heritage awareness
-
-</td>
-</tr>
-</table>
-
----
-
-## 👥 Target Audience
-
-| 👤 User Segment | 🎯 Needs & Benefits |
-|----------------|---------------------|
-| **Local Residents** | Reliable daily transportation between Trujillo and rural communities with digital convenience |
-| **Tourists** | Easy access to explore La Libertad's cultural and natural attractions with guided routes |
-| **Business Travelers** | Professional, punctual service for regional business needs with confirmed bookings |
-| **Families** | Safe, comfortable travel for visiting relatives in highland areas with group discounts |
+### 12. **Favorites Trips View**
+Dedicated screen accessible from profile showing personalized collection of trips marked as favorites via interactive selection system. Presentation via cards with design consistent with general history but specifically filtered by favorites collection in Firestore. Each entry shows distinctive visual identification, control to remove from favorites, complete route and trip information, temporal metadata of addition, and differentiated action buttons for digital ticket access or new booking generation with same route configuration. Automatic favorites synchronization system with instant UI update and persistence between related views, with appropriate visual state when collection is empty.
 
 ---
 
@@ -378,14 +350,19 @@ open DylanExpress.xcworkspace
 
 ### ✅ Phase 1: Core Platform (Completed)
 
-- [x] User authentication system with Firebase Auth
+- [x] User authentication system with Firebase Auth & Google Sign-In
 - [x] Comprehensive ticket search and booking functionality
-- [x] Yape payment gateway integration
+- [x] Multi-payment gateway integration (Yape, Card, Cash)
 - [x] QR code generation and validation system
 - [x] Tourism packages catalog and discovery
 - [x] Push notification infrastructure (FCM)
-- [x] User profile management dashboard
-- [x] Customer support integration (multi-channel)
+- [x] User profile management with photo upload
+- [x] Customer support integration with complaints book
+- [x] Trip favorites system with real-time sync
+- [x] Professional cancellation with audit trail
+- [x] Real-time trip tracking simulation
+- [x] Post-trip rating and evaluation system
+- [x] Dark/Light theme with global persistence
 
 ### 🚧 Phase 2: Enhanced Features (In Progress)
 
@@ -393,15 +370,15 @@ open DylanExpress.xcworkspace
 - [ ] **Apple Pay Integration** - Native iOS payment method
 - [ ] **Offline Booking** - Limited offline functionality
 - [ ] **Analytics Dashboard** - User behavior insights
-- [ ] **Rating System** - Trip and driver reviews
+- [ ] **Advanced Rating Insights** - Driver and route analytics
 
 ### 🔮 Phase 3: Advanced Features (Planned)
 
 - [ ] **AI Route Recommendations** - Machine learning-powered suggestions
-- [ ] **Real-time GPS Tracking** - Live vehicle location
+- [ ] **Real-time GPS Tracking** - Live vehicle location with actual GPS
 - [ ] **In-app Driver Chat** - Direct communication channel
 - [ ] **Loyalty Program** - Points and rewards system
-- [ ] **Additional Payment Providers** - Plin, Tunki, cards
+- [ ] **Additional Payment Providers** - Plin, Tunki, international cards
 - [ ] **AR Tourism Guides** - Augmented reality experiences
 - [ ] **Carbon Footprint Tracking** - Environmental impact metrics
 
@@ -410,7 +387,6 @@ open DylanExpress.xcworkspace
 ## 🧪 Testing & Quality Assurance
 
 ### Running Tests
-
 ```bash
 # Unit Tests
 xcodebuild test -workspace DylanExpress.xcworkspace \
@@ -448,7 +424,6 @@ This is a **private proprietary project**. For collaboration inquiries:
 - ✅ Submit detailed pull requests with screenshots
 
 ### Code Style
-
 ```swift
 // Example: Follow these conventions
 class BookingViewModel: ObservableObject {
