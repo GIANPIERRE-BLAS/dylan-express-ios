@@ -9,6 +9,7 @@ struct MyTripsView: View {
     @State private var bookings: [BookingData] = []
     @State private var isLoading = true
     @State private var favoriteIds: Set<String> = []
+    @State private var showCancelledTrips = false
     
     var body: some View {
         ZStack {
@@ -35,6 +36,9 @@ struct MyTripsView: View {
                                 isFavorite: favoriteIds.contains(booking.id),
                                 onFavoriteToggle: {
                                     toggleFavorite(booking)
+                                },
+                                onTripCancelled: {
+                                    loadBookings()
                                 }
                             )
                             .environmentObject(viewModel)
@@ -46,6 +50,21 @@ struct MyTripsView: View {
         }
         .navigationTitle("Mis Viajes")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    showCancelledTrips.toggle()
+                    loadBookings()
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: showCancelledTrips ? "eye.slash.fill" : "clock.arrow.circlepath")
+                        Text(showCancelledTrips ? "Ocultar" : "Historial")
+                    }
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
+                }
+            }
+        }
         .preferredColorScheme(isDarkMode ? .dark : .light)
         .onAppear {
             loadBookings()
@@ -70,11 +89,11 @@ struct MyTripsView: View {
             }
             
             VStack(spacing: 10) {
-                Text("No tienes viajes reservados")
+                Text(showCancelledTrips ? "No tienes viajes cancelados" : "No tienes viajes reservados")
                     .font(.title2.bold())
                     .foregroundColor(isDarkMode ? .white : .black)
                 
-                Text("Comienza a explorar y reserva\ntu próxima aventura")
+                Text(showCancelledTrips ? "Los viajes cancelados aparecerán aquí" : "Comienza a explorar y reserva\ntu próxima aventura")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .multilineTextAlignment(.center)
@@ -88,10 +107,12 @@ struct MyTripsView: View {
         guard let userId = viewModel.userSession?.uid else { return }
         isLoading = true
         
+        let statuses = showCancelledTrips ? ["cancelled"] : ["pending", "paid"]
+        
         Firestore.firestore()
             .collection("bookings")
             .whereField("userId", isEqualTo: userId)
-            .whereField("status", in: ["pending", "paid"])
+            .whereField("status", in: statuses)
             .getDocuments { snapshot, _ in
                 isLoading = false
                 
@@ -156,7 +177,6 @@ struct MyTripsView: View {
         guard let userId = viewModel.userSession?.uid else { return }
         
         if favoriteIds.contains(booking.id) {
-            // Remove from favorites
             Firestore.firestore()
                 .collection("favorites")
                 .whereField("userId", isEqualTo: userId)
@@ -170,7 +190,6 @@ struct MyTripsView: View {
                     }
                 }
         } else {
-            // Add to favorites
             let favoriteData: [String: Any] = [
                 "userId": userId,
                 "bookingId": booking.id,
@@ -203,40 +222,43 @@ struct TripCardWithActions: View {
     let booking: BookingData
     let isFavorite: Bool
     let onFavoriteToggle: () -> Void
+    let onTripCancelled: () -> Void
     
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var showShareSheet = false
     @State private var hasRating = false
+    @State private var showCancelAlert = false
     
     var body: some View {
         VStack(spacing: 0) {
-            // Header con botón de favorito
             HStack {
                 HStack(spacing: 6) {
                     Circle()
-                        .foregroundColor(booking.status == "paid" ? .green : .orange)
+                        .foregroundColor(statusColor)
                         .frame(width: 9, height: 9)
-                    Text(booking.status == "paid" ? "Pagado" : "Pendiente")
+                    Text(statusText)
                         .font(.caption.bold())
-                        .foregroundColor(booking.status == "paid" ? .green : .orange)
+                        .foregroundColor(statusColor)
                 }
                 
                 Spacer()
                 
-                Button(action: {
-                    onFavoriteToggle()
-                }) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .font(.system(size: 20))
-                        .foregroundColor(isFavorite ? .red : .gray)
-                        .scaleEffect(isFavorite ? 1.1 : 1.0)
-                        .animation(.easeInOut(duration: 0.2))
-                        .padding(8)
-                        .background(
-                            Circle()
-                                .foregroundColor(isDarkMode ? Color.gray.opacity(0.3) : Color.white)
-                                .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                        )
+                if booking.status != "cancelled" {
+                    Button(action: {
+                        onFavoriteToggle()
+                    }) {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+                            .font(.system(size: 20))
+                            .foregroundColor(isFavorite ? .red : .gray)
+                            .scaleEffect(isFavorite ? 1.1 : 1.0)
+                            .animation(.easeInOut(duration: 0.2), value: isFavorite)
+                            .padding(8)
+                            .background(
+                                Circle()
+                                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.3) : Color.white)
+                                    .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                            )
+                    }
                 }
             }
             .padding()
@@ -247,7 +269,7 @@ struct TripCardWithActions: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(booking.origin)
                             .font(.title3.bold())
-                            .foregroundColor(isDarkMode ? .white : .black)
+                            .foregroundColor(booking.status == "cancelled" ? .gray : (isDarkMode ? .white : .black))
                         Text(booking.time)
                             .font(.caption)
                             .foregroundColor(.gray)
@@ -255,12 +277,12 @@ struct TripCardWithActions: View {
                     Spacer()
                     Image(systemName: booking.isTouristPlace ? "camera.viewfinder" : "arrow.right")
                         .font(.title2)
-                        .foregroundColor(.blue)
+                        .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                     Spacer()
                     VStack(alignment: .trailing, spacing: 4) {
                         Text(booking.destination)
                             .font(.title3.bold())
-                            .foregroundColor(isDarkMode ? .white : .black)
+                            .foregroundColor(booking.status == "cancelled" ? .gray : (isDarkMode ? .white : .black))
                         Text(booking.dateString)
                             .font(.caption)
                             .foregroundColor(.gray)
@@ -273,158 +295,202 @@ struct TripCardWithActions: View {
                     if booking.isTouristPlace {
                         HStack(spacing: 6) {
                             Image(systemName: "person.3.fill")
-                                .foregroundColor(.blue)
+                                .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                             Text("\(booking.numberOfPeople ?? 1) persona(s)")
                                 .font(.subheadline.bold())
-                                .foregroundColor(.blue)
+                                .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                         }
                     } else {
                         HStack(spacing: 6) {
                             Image(systemName: "airline.seat.recline.normal")
-                                .foregroundColor(.blue)
+                                .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                             Text("Asiento \(booking.seatNumber)")
                                 .font(.subheadline.bold())
-                                .foregroundColor(.blue)
+                                .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                         }
                     }
                     Spacer()
                     if booking.isTouristPlace {
                         Image(systemName: "mappin.and.ellipse")
-                            .foregroundColor(Color(red: 1, green: 0.85, blue: 0.0))
+                            .foregroundColor(booking.status == "cancelled" ? .gray : Color(red: 1, green: 0.85, blue: 0.0))
                         Text("Tour")
                             .font(.caption.bold())
-                            .foregroundColor(Color(red: 1, green: 0.85, blue: 0.0))
+                            .foregroundColor(booking.status == "cancelled" ? .gray : Color(red: 1, green: 0.85, blue: 0.0))
                     }
                 }
                 
                 HStack {
                     Text("Total: S/ \(String(format: "%.2f", booking.price))")
                         .font(.headline)
-                        .foregroundColor(.blue)
+                        .foregroundColor(booking.status == "cancelled" ? .gray : .blue)
                     Spacer()
                 }
             }
             .padding()
             
-            Divider()
-            
-            VStack(spacing: 12) {
-                HStack(spacing: 12) {
-                    NavigationLink(destination: TicketDetailView(bookingId: booking.id)
-                        .environmentObject(viewModel)) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "ticket.fill")
-                            Text("Ver Boleto")
+            if booking.status != "cancelled" {
+                Divider()
+                
+                VStack(spacing: 12) {
+                    HStack(spacing: 12) {
+                        NavigationLink(destination: TicketDetailView(bookingId: booking.id)
+                            .environmentObject(viewModel)) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "ticket.fill")
+                                Text("Ver Boleto")
+                            }
+                            .font(.subheadline.bold())
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(primaryGradient)
+                            .cornerRadius(12)
                         }
-                        .font(.subheadline.bold())
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(primaryGradient)
-                        .cornerRadius(12)
+                        
+                        Button(action: {
+                            showShareSheet = true
+                        }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "square.and.arrow.up")
+                                Text("Compartir")
+                            }
+                            .font(.subheadline.bold())
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(LinearGradient(
+                                gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            ))
+                            .cornerRadius(12)
+                        }
+                        .sheet(isPresented: $showShareSheet) {
+                            ShareSheet(activityItems: [generateTicketImage()])
+                        }
                     }
                     
-                    Button(action: {
-                        showShareSheet = true
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: "square.and.arrow.up")
-                            Text("Compartir")
-                        }
-                        .font(.subheadline.bold())
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(LinearGradient(
-                            gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        ))
-                        .cornerRadius(12)
-                    }
-                    .sheet(isPresented: $showShareSheet) {
-                        ShareSheet(activityItems: [generateTicketImage()])
-                    }
-                }
-                
-                if booking.status == "pending" {
-                    if booking.paymentMethod == "cash" {
-                        Button(action: {}) {
-                            HStack(spacing: 6) {
-                                Image(systemName: "building.2.fill")
-                                Text("Pagar en Agencia")
+                    if booking.status == "pending" {
+                        HStack(spacing: 12) {
+                            if booking.paymentMethod == "cash" {
+                                Button(action: {}) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "building.2.fill")
+                                        Text("Pagar en Agencia")
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 14)
+                                    .background(Color.orange)
+                                    .cornerRadius(12)
+                                }
+                            } else {
+                                NavigationLink(destination: PaymentMethodsView(
+                                    bookingId: booking.id,
+                                    origin: booking.origin,
+                                    destination: booking.destination,
+                                    date: booking.date,
+                                    time: booking.time,
+                                    seatNumber: booking.seatNumber,
+                                    price: booking.price
+                                ).environmentObject(viewModel)) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "creditcard.fill")
+                                        Text("Pagar Ahora")
+                                    }
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 14)
+                                    .background(Color.green)
+                                    .cornerRadius(12)
+                                }
                             }
-                            .font(.subheadline.bold())
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(Color.orange)
-                            .cornerRadius(12)
-                        }
-                    } else {
-                        NavigationLink(destination: PaymentMethodsView(
-                            bookingId: booking.id,
-                            origin: booking.origin,
-                            destination: booking.destination,
-                            date: booking.date,
-                            time: booking.time,
-                            seatNumber: booking.seatNumber,
-                            price: booking.price
-                        ).environmentObject(viewModel)) {
-                            HStack(spacing: 6) {
-                                Image(systemName: "creditcard.fill")
-                                Text("Pagar Ahora")
+                            
+                            Button(action: {
+                                showCancelAlert = true
+                            }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "xmark.circle.fill")
+                                    Text("Cancelar")
+                                }
+                                .font(.subheadline.bold())
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(Color.red)
+                                .cornerRadius(12)
                             }
-                            .font(.subheadline.bold())
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(Color.green)
-                            .cornerRadius(12)
+                            .alert("Cancelar Viaje", isPresented: $showCancelAlert) {
+                                Button("Cancelar", role: .cancel) {}
+                                Button("Confirmar", role: .destructive) {
+                                    cancelTrip()
+                                }
+                            } message: {
+                                Text("¿Estás seguro de que deseas cancelar este viaje? Esta acción no se puede deshacer.")
+                            }
                         }
-                    }
-                } else if booking.status == "paid" {
-                    if hasRating {
-                        HStack(spacing: 8) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.title3)
-                            Text("Viaje Terminado")
-                                .font(.headline.bold())
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(Color.gray)
-                        .cornerRadius(12)
-                    } else {
-                        NavigationLink(destination: TripSimulationView(booking: booking)) {
+                    } else if booking.status == "paid" {
+                        if hasRating {
                             HStack(spacing: 8) {
-                                Image(systemName: "location.fill")
+                                Image(systemName: "checkmark.circle.fill")
                                     .font(.title3)
-                                Text("Iniciar Viaje")
+                                Text("Viaje Terminado")
                                     .font(.headline.bold())
                             }
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 16)
-                            .background(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        Color(red: 0.0, green: 0.7, blue: 0.3),
-                                        Color(red: 0.0, green: 0.5, blue: 0.8)
-                                    ]),
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
+                            .background(Color.gray)
                             .cornerRadius(12)
-                            .shadow(color: Color.green.opacity(0.3), radius: 8, x: 0, y: 4)
+                        } else {
+                            NavigationLink(destination: TripSimulationView(booking: booking)) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "location.fill")
+                                        .font(.title3)
+                                    Text("Iniciar Viaje")
+                                        .font(.headline.bold())
+                                }
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 16)
+                                .background(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [
+                                            Color(red: 0.0, green: 0.7, blue: 0.3),
+                                            Color(red: 0.0, green: 0.5, blue: 0.8)
+                                        ]),
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .cornerRadius(12)
+                                .shadow(color: Color.green.opacity(0.3), radius: 8, x: 0, y: 4)
+                            }
                         }
                     }
                 }
+                .padding(.horizontal)
+                .padding(.bottom, 12)
+            } else {
+                Divider()
+                
+                HStack(spacing: 8) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title3)
+                    Text("Viaje Cancelado")
+                        .font(.headline.bold())
+                    Spacer()
+                    Text(formatCancelDate())
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                .foregroundColor(.red.opacity(0.8))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
-            .padding(.bottom, 12)
         }
         .background(
             RoundedRectangle(cornerRadius: 20)
@@ -432,12 +498,37 @@ struct TripCardWithActions: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(primaryGradient, lineWidth: 2)
+                .stroke(booking.status == "cancelled" ? LinearGradient(gradient: Gradient(colors: [Color.red.opacity(0.5), Color.red.opacity(0.5)]), startPoint: .leading, endPoint: .trailing) : primaryGradient, lineWidth: 2)
         )
         .shadow(color: isDarkMode ? .clear : .black.opacity(0.1), radius: 8, x: 0, y: 4)
+        .opacity(booking.status == "cancelled" ? 0.7 : 1.0)
         .onAppear {
             checkForRating()
         }
+    }
+    
+    private var statusColor: Color {
+        switch booking.status {
+        case "paid": return .green
+        case "pending": return .orange
+        case "cancelled": return .red
+        default: return .gray
+        }
+    }
+    
+    private var statusText: String {
+        switch booking.status {
+        case "paid": return "Pagado"
+        case "pending": return "Pendiente"
+        case "cancelled": return "Cancelado"
+        default: return "Desconocido"
+        }
+    }
+    
+    private func formatCancelDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        return formatter.string(from: booking.createdAt)
     }
     
     private func checkForRating() {
@@ -447,6 +538,20 @@ struct TripCardWithActions: View {
             .getDocuments { snapshot, _ in
                 DispatchQueue.main.async {
                     self.hasRating = (snapshot?.documents.count ?? 0) > 0
+                }
+            }
+    }
+    
+    private func cancelTrip() {
+        Firestore.firestore()
+            .collection("bookings")
+            .document(booking.id)
+            .updateData([
+                "status": "cancelled",
+                "cancelledAt": Timestamp(date: Date())
+            ]) { error in
+                if error == nil {
+                    onTripCancelled()
                 }
             }
     }
