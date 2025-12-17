@@ -3,8 +3,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct TouristPlaceView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @EnvironmentObject var viewModel: AuthViewModel
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     let place: TouristPlace
     let origin: String
@@ -48,7 +49,8 @@ struct TouristPlaceView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack(spacing: 25) {
@@ -89,7 +91,7 @@ struct TouristPlaceView: View {
                             .foregroundColor(.white)
                             .padding(.horizontal, 16)
                             .padding(.vertical, 10)
-                            .background(Capsule().fill(Color.red))
+                            .background(Capsule().foregroundColor(Color.red))
                             .padding(26)
                     }
                     
@@ -98,11 +100,11 @@ struct TouristPlaceView: View {
                             VStack(alignment: .leading, spacing: 12) {
                                 Text(place.name)
                                     .font(.system(size: 28, weight: .bold))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(isDarkMode ? .white : .black)
                                 
                                 HStack(spacing: 8) {
                                     Image(systemName: "mappin.and.ellipse")
-                                        .foregroundStyle(primaryGradient)
+                                        .foregroundColor(.blue)
                                     Text("La Libertad, Perú")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
@@ -110,7 +112,7 @@ struct TouristPlaceView: View {
                                 
                                 HStack(spacing: 8) {
                                     Image(systemName: "location.fill")
-                                        .foregroundStyle(primaryGradient)
+                                        .foregroundColor(.blue)
                                     Text("Salida desde: \(origin)")
                                         .font(.subheadline)
                                         .foregroundColor(.gray)
@@ -158,26 +160,30 @@ struct TouristPlaceView: View {
         }
         .navigationTitle("Viaje Turístico")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 17, weight: .semibold))
-                        Text("Reserva de Pasaje")
-                            .font(.system(size: 17))
-                    }
+        .navigationBarItems(
+            leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack(spacing: 5) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                    Text("Reserva de Pasaje")
+                        .font(.system(size: 17))
                 }
+                .foregroundColor(.blue)
             }
-        }
-        .alert("Reserva Creada", isPresented: $showAlert) {
-            Button("Ir a Mis Viajes") {
-                dismiss()
-            }
-            Button("Continuar", role: .cancel) {}
-        } message: {
-            Text(alertMessage)
+        )
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Reserva Creada"),
+                message: Text(alertMessage),
+                primaryButton: .default(Text("Ir a Mis Viajes")) {
+                    presentationMode.wrappedValue.dismiss()
+                },
+                secondaryButton: .cancel(Text("Continuar"))
+            )
         }
     }
     
@@ -253,10 +259,10 @@ struct TouristPlaceView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
                 Image(systemName: "tag.fill")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Información de Precios")
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             
             VStack(spacing: 10) {
@@ -281,16 +287,17 @@ struct TouristPlaceView: View {
                 HStack {
                     Text("Precio por persona:")
                         .font(.subheadline.bold())
+                        .foregroundColor(isDarkMode ? .white : .black)
                     Spacer()
                     Text("S/ \(String(format: "%.2f", pricePerPerson))")
                         .font(.title3.bold())
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.green)
                 }
             }
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.gray.opacity(0.1))
+                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.gray.opacity(0.1))
             )
         }
     }
@@ -300,7 +307,7 @@ struct TouristPlaceView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
                     Image(systemName: "calendar")
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text("Fecha del Tour")
                         .font(.subheadline.bold())
                         .foregroundColor(.gray)
@@ -324,7 +331,7 @@ struct TouristPlaceView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
                     Image(systemName: "clock.fill")
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text("Hora de salida")
                         .font(.subheadline.bold())
                         .foregroundColor(.gray)
@@ -339,16 +346,16 @@ struct TouristPlaceView: View {
                 } label: {
                     HStack {
                         Image(systemName: "timer")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                             .font(.title3)
                         
                         Text(selectedTime)
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
                         Spacer()
                         
                         Image(systemName: "chevron.down")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                     }
                     .padding()
                     .background(
@@ -364,23 +371,23 @@ struct TouristPlaceView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
                 Image(systemName: "person.2.fill")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Tipo de Viaje")
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             
             HStack(spacing: 12) {
                 ForEach(TravelType.allCases, id: \.self) { type in
-                    Button {
+                    Button(action: {
                         travelType = type
                         selectedSeats = []
-                    } label: {
+                    }) {
                         HStack {
                             Image(systemName: travelType == type ? "checkmark.circle.fill" : "circle")
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.blue)
                             Text(type.rawValue)
-                                .foregroundColor(.black)
+                                .foregroundColor(isDarkMode ? .white : .black)
                         }
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -389,7 +396,7 @@ struct TouristPlaceView: View {
                                 .stroke(primaryGradient, lineWidth: travelType == type ? 2 : 1)
                                 .background(
                                     RoundedRectangle(cornerRadius: 16)
-                                        .fill(travelType == type ? Color.gray.opacity(0.1) : Color.clear)
+                                        .foregroundColor(travelType == type ? Color.gray.opacity(0.2) : Color.clear)
                                 )
                         )
                     }
@@ -402,42 +409,42 @@ struct TouristPlaceView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
                 Image(systemName: "person.3.fill")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Número de Personas")
                     .font(.subheadline.bold())
                     .foregroundColor(.gray)
             }
             
             HStack {
-                Button {
+                Button(action: {
                     if numberOfPeople > 2 {
                         numberOfPeople -= 1
                         if selectedSeats.count > numberOfPeople {
                             selectedSeats = Array(selectedSeats.prefix(numberOfPeople))
                         }
                     }
-                } label: {
+                }) {
                     Image(systemName: "minus.circle.fill")
                         .font(.title2)
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                 }
                 
                 Spacer()
                 
                 Text("\(numberOfPeople)")
                     .font(.title2.bold())
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
                 
                 Spacer()
                 
-                Button {
+                Button(action: {
                     if numberOfPeople < 10 {
                         numberOfPeople += 1
                     }
-                } label: {
+                }) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title2)
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                 }
             }
             .padding()
@@ -452,10 +459,10 @@ struct TouristPlaceView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 6) {
                 Image(systemName: "airline.seat.recline.normal")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Selección de Asientos")
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             
             if selectedSeats.isEmpty {
@@ -467,15 +474,15 @@ struct TouristPlaceView: View {
                 )) {
                     HStack {
                         Image(systemName: "hand.tap.fill")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                         Text("Seleccionar Asientos")
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                         Spacer()
                         Text("(\(travelType == .solo ? "1" : "\(numberOfPeople)") asiento\(travelType == .solo || numberOfPeople == 1 ? "" : "s"))")
                             .font(.caption)
                             .foregroundColor(.gray)
                         Image(systemName: "chevron.right")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                     }
                     .padding()
                     .background(
@@ -492,7 +499,7 @@ struct TouristPlaceView: View {
                                 .foregroundColor(.gray)
                             Text(selectedSeats.map { String($0) }.joined(separator: ", "))
                                 .font(.headline)
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.green)
                         }
                         Spacer()
                         NavigationLink(destination: TouristSeatSelectionView(
@@ -503,13 +510,13 @@ struct TouristPlaceView: View {
                         )) {
                             Image(systemName: "pencil.circle.fill")
                                 .font(.title3)
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.blue)
                         }
                     }
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.gray.opacity(0.1))
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.gray.opacity(0.1))
                     )
                 }
             }
@@ -522,7 +529,7 @@ struct TouristPlaceView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Total a Pagar")
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(isDarkMode ? .white : .black)
                     if travelType == .group {
                         Text("\(numberOfPeople) personas × S/ \(String(format: "%.2f", pricePerPerson))")
                             .font(.caption)
@@ -532,7 +539,7 @@ struct TouristPlaceView: View {
                 Spacer()
                 Text("S/ \(String(format: "%.2f", totalPrice))")
                     .font(.system(size: 32, weight: .bold))
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.green)
             }
             .padding()
             .background(
@@ -540,13 +547,13 @@ struct TouristPlaceView: View {
                     .stroke(primaryGradient, lineWidth: 2)
                     .background(
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.1) : Color.white)
                     )
             )
             
-            Button {
+            Button(action: {
                 addToMyTrips()
-            } label: {
+            }) {
                 HStack {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.headline)
@@ -573,11 +580,12 @@ struct TouristPlaceView: View {
 }
 
 struct TouristSeatSelectionView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @Binding var selectedSeats: [Int]
     let numberOfSeats: Int
     let destination: String
     let selectedDate: Date
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     @State private var tempSelectedSeats: [Int] = []
     @State private var occupiedSeats: [Int] = []
     @State private var isLoading = true
@@ -587,11 +595,17 @@ struct TouristSeatSelectionView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             if isLoading {
-                ProgressView("Cargando asientos...")
-                    .scaleEffect(1.2)
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .scaleEffect(1.3)
+                    Text("Cargando asientos...")
+                        .foregroundColor(.gray)
+                }
             } else {
                 ScrollView {
                     VStack(spacing: 25) {
@@ -617,19 +631,21 @@ struct TouristSeatSelectionView: View {
         }
         .navigationTitle("Seleccionar Asientos")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 17, weight: .semibold))
-                        Text("Reserva de Pasaje")
-                            .font(.system(size: 17))
-                    }
+        .navigationBarItems(
+            leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack(spacing: 5) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                    Text("Reserva de Pasaje")
+                        .font(.system(size: 17))
                 }
+                .foregroundColor(.blue)
             }
-        }
+        )
         .onAppear {
             tempSelectedSeats = selectedSeats
             loadOccupiedSeats()
@@ -640,26 +656,29 @@ struct TouristSeatSelectionView: View {
         HStack(spacing: 20) {
             HStack(spacing: 8) {
                 Circle()
-                    .fill(Color.gray.opacity(0.2))
+                    .foregroundColor(Color.gray.opacity(0.2))
                     .frame(width: 20, height: 20)
                 Text("Disponible")
                     .font(.caption)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             
             HStack(spacing: 8) {
                 Circle()
-                    .fill(Color(red: 1, green: 0.85, blue: 0.0))
+                    .foregroundColor(Color(red: 1, green: 0.85, blue: 0.0))
                     .frame(width: 20, height: 20)
                 Text("Seleccionado")
                     .font(.caption)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             
             HStack(spacing: 8) {
                 Circle()
-                    .fill(Color.red.opacity(0.3))
+                    .foregroundColor(Color.red.opacity(0.3))
                     .frame(width: 20, height: 20)
                 Text("Ocupado")
                     .font(.caption)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
         }
         .padding(.horizontal, 20)
@@ -671,7 +690,7 @@ struct TouristSeatSelectionView: View {
             VStack(spacing: 4) {
                 Image(systemName: "steeringwheel")
                     .font(.title)
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Conductor")
                     .font(.caption2)
                     .foregroundColor(.gray)
@@ -681,7 +700,7 @@ struct TouristSeatSelectionView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.gray.opacity(0.1))
+                .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.gray.opacity(0.1))
         )
         .padding(.horizontal, 20)
     }
@@ -693,6 +712,7 @@ struct TouristSeatSelectionView: View {
                     seatNumber: seatNumber,
                     isSelected: tempSelectedSeats.contains(seatNumber),
                     isOccupied: occupiedSeats.contains(seatNumber),
+                    isDarkMode: isDarkMode,
                     action: {
                         toggleSeat(seatNumber)
                     }
@@ -703,10 +723,10 @@ struct TouristSeatSelectionView: View {
     }
     
     private var confirmButton: some View {
-        Button {
+        Button(action: {
             selectedSeats = tempSelectedSeats.sorted()
-            dismiss()
-        } label: {
+            presentationMode.wrappedValue.dismiss()
+        }) {
             HStack {
                 Image(systemName: "checkmark.circle.fill")
                 Text("CONFIRMAR ASIENTOS")
@@ -770,6 +790,7 @@ struct SeatButton: View {
     let seatNumber: Int
     let isSelected: Bool
     let isOccupied: Bool
+    let isDarkMode: Bool
     let action: () -> Void
     
     var backgroundColor: Color {
@@ -778,7 +799,7 @@ struct SeatButton: View {
         } else if isSelected {
             return Color(red: 1, green: 0.85, blue: 0.0)
         } else {
-            return Color.gray.opacity(0.15)
+            return isDarkMode ? Color.gray.opacity(0.3) : Color.gray.opacity(0.15)
         }
     }
     
@@ -788,7 +809,7 @@ struct SeatButton: View {
         } else if isSelected {
             return .white
         } else {
-            return .black
+            return isDarkMode ? .white : .black
         }
     }
     
@@ -805,7 +826,7 @@ struct SeatButton: View {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(backgroundColor)
+                    .foregroundColor(backgroundColor)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 12)

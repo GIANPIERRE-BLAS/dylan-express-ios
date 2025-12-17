@@ -2,6 +2,8 @@ import SwiftUI
 import FirebaseFirestore
 
 struct YapePaymentView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let bookingId: String
     let origin: String
     let destination: String
@@ -16,11 +18,12 @@ struct YapePaymentView: View {
     @State private var showConfirmation = false
     @State private var isProcessing = false
     @State private var paymentCompleted = false
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack(spacing: 30) {
@@ -33,6 +36,7 @@ struct YapePaymentView: View {
                     
                     Text("Pago con Yape")
                         .font(.title.bold())
+                        .foregroundColor(isDarkMode ? .white : .black)
                     
                     Text("S/ \(String(format: "%.2f", price))")
                         .font(.system(size: 40, weight: .bold))
@@ -45,19 +49,15 @@ struct YapePaymentView: View {
                         
                         HStack {
                             Image(systemName: "phone.fill")
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.purple)
                             TextField("999 999 999", text: $phoneNumber)
                                 .keyboardType(.numberPad)
-                                .onChange(of: phoneNumber) { newValue in
-                                    if newValue.count > 9 {
-                                        phoneNumber = String(newValue.prefix(9))
-                                    }
-                                }
+                                .foregroundColor(isDarkMode ? .white : .black)
                         }
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(primaryGradient, lineWidth: 1.7)
+                                .stroke(Color.purple, lineWidth: 1.7)
                         )
                     }
                     .padding(.horizontal, 25)
@@ -69,19 +69,15 @@ struct YapePaymentView: View {
                         
                         HStack {
                             Image(systemName: "number")
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.purple)
                             TextField("Ej: 123456789", text: $operationNumber)
                                 .keyboardType(.numberPad)
-                                .onChange(of: operationNumber) { newValue in
-                                    if newValue.count > 10 {
-                                        operationNumber = String(newValue.prefix(10))
-                                    }
-                                }
+                                .foregroundColor(isDarkMode ? .white : .black)
                         }
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(primaryGradient, lineWidth: 1.7)
+                                .stroke(Color.purple, lineWidth: 1.7)
                         )
                     }
                     .padding(.horizontal, 25)
@@ -113,12 +109,12 @@ struct YapePaymentView: View {
                     }
                     .padding(.horizontal, 25)
                     
-                    Button {
+                    Button(action: {
                         processPayment()
-                    } label: {
+                    }) {
                         if isProcessing {
                             ProgressView()
-                                .tint(.white)
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         } else {
                             HStack {
                                 Image(systemName: "checkmark.circle.fill")
@@ -143,12 +139,12 @@ struct YapePaymentView: View {
             if isProcessing {
                 ZStack {
                     Color.black.opacity(0.4)
-                        .ignoresSafeArea()
+                        .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 20) {
                         ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .purple))
                             .scaleEffect(1.5)
-                            .tint(.purple)
                         
                         Text("Procesando pago...")
                             .font(.title2.bold())
@@ -157,7 +153,7 @@ struct YapePaymentView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                 }
@@ -167,18 +163,16 @@ struct YapePaymentView: View {
             if paymentCompleted {
                 ZStack {
                     Color.black.opacity(0.4)
-                        .ignoresSafeArea()
+                        .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 20) {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 80))
                             .foregroundColor(.green)
-                            .scaleEffect(paymentCompleted ? 1 : 0.5)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: paymentCompleted)
                         
                         Text("¡Pago realizado!")
                             .font(.title.bold())
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
                         Text("Tu reserva ha sido confirmada")
                             .font(.subheadline)
@@ -187,7 +181,7 @@ struct YapePaymentView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                 }
@@ -196,13 +190,12 @@ struct YapePaymentView: View {
         }
         .navigationTitle("Yape")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .navigationBarBackButtonHidden(isProcessing || paymentCompleted)
     }
     
     func processPayment() {
-        withAnimation {
-            isProcessing = true
-        }
+        isProcessing = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             Firestore.firestore().collection("bookings").document(bookingId).updateData([
@@ -211,17 +204,13 @@ struct YapePaymentView: View {
                 "yapePhone": phoneNumber,
                 "yapeOperationNumber": operationNumber
             ]) { error in
-                withAnimation {
-                    isProcessing = false
-                }
+                isProcessing = false
                 
                 if error == nil {
-                    withAnimation {
-                        paymentCompleted = true
-                    }
+                    paymentCompleted = true
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
             }

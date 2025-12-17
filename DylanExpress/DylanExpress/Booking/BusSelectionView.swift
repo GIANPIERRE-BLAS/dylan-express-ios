@@ -3,13 +3,15 @@ import FirebaseFirestore
 import FirebaseAuth
 
 struct BusSelectionView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let origin: String
     let destination: String
     let date: Date
     let time: String
     
     @EnvironmentObject var viewModel: AuthViewModel
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var selectedSeat: Int?
     @State private var bookedSeats: [Int] = []
@@ -24,11 +26,17 @@ struct BusSelectionView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             if isLoading {
-                ProgressView("Cargando asientos...")
-                    .scaleEffect(1.2)
+                VStack(spacing: 16) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.primaryGreen))
+                        .scaleEffect(1.3)
+                    Text("Cargando asientos...")
+                        .foregroundColor(.gray)
+                }
             } else {
                 ScrollView {
                     VStack(spacing: 25) {
@@ -45,43 +53,51 @@ struct BusSelectionView: View {
             }
             
             if isCreatingBooking {
-                Color.black.opacity(0.4).ignoresSafeArea()
-                VStack(spacing: 15) {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                        .tint(.white)
-                    Text("Creando reserva...")
-                        .foregroundColor(.white)
-                        .font(.headline)
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    VStack(spacing: 15) {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(1.5)
+                        Text("Creando reserva...")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                    }
                 }
             }
         }
         .navigationTitle("Seleccionar Asiento")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button { dismiss() } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 17, weight: .semibold))
-                        Text("Reserva de Pasaje")
-                            .font(.system(size: 17))
-                    }
+        .navigationBarItems(
+            leading: Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                HStack(spacing: 5) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 17, weight: .semibold))
+                    Text("Reserva de Pasaje")
+                        .font(.system(size: 17))
                 }
+                .foregroundColor(.blue)
             }
-        }
+        )
         .onAppear { loadBookedSeats() }
-        .alert("Reserva Creada", isPresented: $showAlert) {
-            Button("Ir a Mis Viajes") {
-                if let tabBar = UIApplication.shared.windows.first?.rootViewController as? UITabBarController {
-                    tabBar.selectedIndex = 2
-                }
-                dismiss()
-            }
-            Button("Continuar", role: .cancel) {}
-        } message: {
-            Text(alertMessage)
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Reserva Creada"),
+                message: Text(alertMessage),
+                primaryButton: .default(Text("Ir a Mis Viajes")) {
+                    if let tabBar = UIApplication.shared.windows.first?.rootViewController as? UITabBarController {
+                        tabBar.selectedIndex = 2
+                    }
+                    presentationMode.wrappedValue.dismiss()
+                },
+                secondaryButton: .cancel(Text("Continuar"))
+            )
         }
     }
     
@@ -90,17 +106,25 @@ struct BusSelectionView: View {
         VStack(spacing: 12) {
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(origin).font(.title3.bold())
-                    Text(time).font(.caption).foregroundColor(.gray)
+                    Text(origin)
+                        .font(.title3.bold())
+                        .foregroundColor(isDarkMode ? .white : .black)
+                    Text(time)
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
                 Spacer()
                 Image(systemName: "arrow.right")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                     .font(.title2)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text(destination).font(.title3.bold())
-                    Text(formatDate(date)).font(.caption).foregroundColor(.gray)
+                    Text(destination)
+                        .font(.title3.bold())
+                        .foregroundColor(isDarkMode ? .white : .black)
+                    Text(formatDate(date))
+                        .font(.caption)
+                        .foregroundColor(.gray)
                 }
             }
             .padding()
@@ -115,9 +139,9 @@ struct BusSelectionView: View {
     @ViewBuilder
     private var legendSection: some View {
         HStack(spacing: 30) {
-            LegendItem(color: Color.gray.opacity(0.2), text: "Disponible")
-            LegendItem(color: Color.red.opacity(0.4), text: "Ocupado")
-            LegendItemGradient(text: "Seleccionado")
+            LegendItem(color: Color.gray.opacity(0.2), text: "Disponible", isDarkMode: isDarkMode)
+            LegendItem(color: Color.red.opacity(0.4), text: "Ocupado", isDarkMode: isDarkMode)
+            LegendItemGradient(text: "Seleccionado", isDarkMode: isDarkMode)
         }
         .padding(.horizontal, 20)
     }
@@ -127,8 +151,9 @@ struct BusSelectionView: View {
         VStack(spacing: 20) {
             HStack(spacing: 8) {
                 Image(systemName: "airline.seat.recline.normal")
-                    .foregroundStyle(primaryGradient)
+                    .foregroundColor(.blue)
                 Text("Selecciona tu asiento")
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             .font(.title3.bold())
             
@@ -141,7 +166,7 @@ struct BusSelectionView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "steeringwheel")
                         .font(.system(size: 32))
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text("Conductor")
                         .font(.caption2)
                         .foregroundColor(.gray)
@@ -154,7 +179,8 @@ struct BusSelectionView: View {
                     SeatButtonGradient(
                         seatNumber: seatNumber,
                         isBooked: bookedSeats.contains(seatNumber),
-                        isSelected: selectedSeat == seatNumber
+                        isSelected: selectedSeat == seatNumber,
+                        isDarkMode: isDarkMode
                     ) {
                         if !bookedSeats.contains(seatNumber) {
                             selectedSeat = seatNumber
@@ -172,14 +198,15 @@ struct BusSelectionView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.system(size: 40))
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.green)
                     
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Asiento \(seat)")
                             .font(.title2.bold())
+                            .foregroundColor(isDarkMode ? .white : .black)
                         Text("Total: S/ \(String(format: "%.2f", pricePerSeat))")
                             .font(.title3.bold())
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.green)
                     }
                 }
             }
@@ -191,9 +218,9 @@ struct BusSelectionView: View {
             )
             .padding(.horizontal, 20)
             
-            Button {
+            Button(action: {
                 createBookingAndNavigate()
-            } label: {
+            }) {
                 HStack {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.title3)
@@ -235,6 +262,7 @@ struct BusSelectionView: View {
             .whereField("status", in: ["pending", "paid"])
             .getDocuments { snapshot, _ in
                 isLoading = false
+                
                 if let docs = snapshot?.documents {
                     bookedSeats = docs.compactMap { $0.data()["seatNumber"] as? Int }
                 }
@@ -302,20 +330,34 @@ struct BusSelectionView: View {
 struct LegendItem: View {
     let color: Color
     let text: String
+    let isDarkMode: Bool
+    
     var body: some View {
         HStack(spacing: 8) {
-            Circle().fill(color).frame(width: 20, height: 20)
-            Text(text).font(.caption)
+            Circle()
+                .foregroundColor(color)
+                .frame(width: 20, height: 20)
+            Text(text)
+                .font(.caption)
+                .foregroundColor(isDarkMode ? .white : .black)
         }
     }
 }
 
 struct LegendItemGradient: View {
     let text: String
+    let isDarkMode: Bool
+    
     var body: some View {
         HStack(spacing: 8) {
-            Circle().fill(primaryGradient).frame(width: 20, height: 20)
-            Text(text).font(.caption)
+            Circle()
+                .foregroundColor(.clear)
+                .background(primaryGradient)
+                .frame(width: 20, height: 20)
+                .clipShape(Circle())
+            Text(text)
+                .font(.caption)
+                .foregroundColor(isDarkMode ? .white : .black)
         }
     }
 }
@@ -324,6 +366,7 @@ struct SeatButtonGradient: View {
     let seatNumber: Int
     let isBooked: Bool
     let isSelected: Bool
+    let isDarkMode: Bool
     let action: () -> Void
     
     var body: some View {
@@ -337,13 +380,13 @@ struct SeatButtonGradient: View {
             .frame(width: 65, height: 65)
             .background(
                 RoundedRectangle(cornerRadius: 12)
-                    .fill(backgroundFill)
+                    .foregroundColor(backgroundFill)
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(primaryGradient, lineWidth: isSelected ? 2.5 : 0)
                     )
             )
-            .foregroundColor(isSelected ? Color(red: 0.0, green: 0.78, blue: 0.58) : (isBooked ? .red : .black))
+            .foregroundColor(isSelected ? Color(red: 0.0, green: 0.78, blue: 0.58) : (isBooked ? .red : (isDarkMode ? .white : .black)))
         }
         .disabled(isBooked)
     }
@@ -351,7 +394,6 @@ struct SeatButtonGradient: View {
     private var backgroundFill: Color {
         if isBooked { return Color.red.opacity(0.15) }
         if isSelected { return Color(red: 0.0, green: 0.78, blue: 0.58).opacity(0.1) }
-        return Color.gray.opacity(0.1)
+        return isDarkMode ? Color.gray.opacity(0.3) : Color.gray.opacity(0.1)
     }
 }
-

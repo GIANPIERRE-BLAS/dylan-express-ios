@@ -50,6 +50,8 @@ struct TouristPlace: Identifiable {
 
 struct SearchTicketsView: View {
     @EnvironmentObject var viewModel: AuthViewModel
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     @StateObject private var locationManager = LocationManager()
     @State private var origin = "Trujillo - Agencia"
     @State private var destination = ""
@@ -69,6 +71,9 @@ struct SearchTicketsView: View {
     ]
     
     let touristPlaces: [TouristPlace] = [
+        TouristPlace(name: "Balcon del Cielo, SALPO", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrsrEqcNEE7TcNWeSRVBRMSFd0Ojd5Iczzxw&s", discount: "5% OFF"),
+        TouristPlace(name: "Mache extremo", imageUrl: "https://www.ayniforest.com/assets/img/destinations/mache/mache_2.jpg", discount: "10% OFF"),
+        TouristPlace(name: "Otuzco", imageUrl: "https://perutogethertravel.com/wp-content/uploads/2021/11/virgen-de-la-puerta.png", discount: "4% OFF"),
         TouristPlace(name: "Chan Chan", imageUrl: "https://bushop.com/peru/wp-content/uploads/sites/10/chan-chan-trujillo-portada-web.jpg", discount: "10% OFF"),
         TouristPlace(name: "Huacas del Sol y Luna", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZLIeALAg8qwD3p3mV1R_U96f2VCtXiYrJ7Q&s", discount: "15% OFF"),
         TouristPlace(name: "Plaza de Armas", imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSybhsgQXKb-iAPHXvFXGxVgAN1P2rU5a83MQ&s", discount: "5% OFF"),
@@ -81,7 +86,8 @@ struct SearchTicketsView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack(spacing: 30) {
@@ -97,6 +103,7 @@ struct SearchTicketsView: View {
         }
         .navigationTitle("Reservar Pasaje")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .sheet(isPresented: $showOriginSheet) {
             OriginSelectionSheet(origin: $origin, locationManager: locationManager)
         }
@@ -108,11 +115,11 @@ struct SearchTicketsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 8) {
                         Image(systemName: "sparkles")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                             .font(.title3)
                         Text("¿A dónde viajas hoy?")
                             .font(.title2.bold())
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                     }
                     
                     HStack(spacing: 6) {
@@ -138,7 +145,7 @@ struct SearchTicketsView: View {
                     .foregroundColor(Color(red: 1, green: 0.85, blue: 0.0))
                 Text("Descuentos Especiales")
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
             }
             .padding(.horizontal, 25)
             
@@ -164,28 +171,28 @@ struct SearchTicketsView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
                     Image(systemName: "mappin.circle.fill")
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text("Origen")
                         .font(.subheadline.bold())
                         .foregroundColor(.gray)
                 }
                 
-                Button {
+                Button(action: {
                     showOriginSheet = true
-                } label: {
+                }) {
                     HStack {
                         Image(systemName: "house.fill")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                             .font(.title3)
                         
                         Text(origin)
                             .font(.body)
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
                         Spacer()
                         
                         Image(systemName: "chevron.down")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                     }
                     .padding()
                     .background(
@@ -198,7 +205,7 @@ struct SearchTicketsView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
                     Image(systemName: "location.fill")
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text("Destino")
                         .font(.subheadline.bold())
                         .foregroundColor(.gray)
@@ -213,16 +220,16 @@ struct SearchTicketsView: View {
                 } label: {
                     HStack {
                         Image(systemName: "flag.fill")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                             .font(.title3)
                         
                         Text(destination.isEmpty ? "Selecciona tu destino" : destination)
-                            .foregroundColor(destination.isEmpty ? .gray : .black)
+                            .foregroundColor(destination.isEmpty ? .gray : (isDarkMode ? .white : .black))
                         
                         Spacer()
                         
                         Image(systemName: "chevron.down")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                     }
                     .padding()
                     .background(
@@ -236,7 +243,7 @@ struct SearchTicketsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 6) {
                         Image(systemName: "calendar")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                         Text("Fecha de viaje")
                             .font(.subheadline.bold())
                             .foregroundColor(.gray)
@@ -255,7 +262,7 @@ struct SearchTicketsView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack(spacing: 6) {
                         Image(systemName: "clock.fill")
-                            .foregroundStyle(primaryGradient)
+                            .foregroundColor(.blue)
                         Text("Hora de salida")
                             .font(.subheadline.bold())
                             .foregroundColor(.gray)
@@ -270,16 +277,16 @@ struct SearchTicketsView: View {
                     } label: {
                         HStack {
                             Image(systemName: "timer")
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.blue)
                                 .font(.title3)
                             
                             Text(selectedTime)
-                                .foregroundColor(.black)
+                                .foregroundColor(isDarkMode ? .white : .black)
                             
                             Spacer()
                             
                             Image(systemName: "chevron.down")
-                                .foregroundStyle(primaryGradient)
+                                .foregroundColor(.blue)
                         }
                         .padding()
                         .background(
@@ -326,6 +333,7 @@ struct SearchTicketsView: View {
 }
 
 struct TouristCard: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     let place: TouristPlace
     
     var body: some View {
@@ -349,15 +357,15 @@ struct TouristCard: View {
                 
                 Text(place.name)
                     .font(.subheadline.bold())
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
                     .lineLimit(2)
                     .frame(height: 35, alignment: .top)
             }
             .padding(10)
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.white)
-                    .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
+                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+                    .shadow(color: isDarkMode ? .clear : .gray.opacity(0.2), radius: 5, x: 0, y: 2)
             )
             
             Text(place.discount)
@@ -365,7 +373,7 @@ struct TouristCard: View {
                 .foregroundColor(.white)
                 .padding(.horizontal, 10)
                 .padding(.vertical, 5)
-                .background(Capsule().fill(Color.red))
+                .background(Capsule().foregroundColor(Color.red))
                 .padding(8)
         }
         .frame(width: 220, height: 185)
@@ -373,10 +381,12 @@ struct TouristCard: View {
 }
 
 struct OriginSelectionSheet: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     @Binding var origin: String
     @ObservedObject var locationManager: LocationManager
     @State private var manualAddress = ""
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     let predefinedCities = [
         "Trujillo - Agencia",
@@ -391,28 +401,29 @@ struct OriginSelectionSheet: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color.white.ignoresSafeArea()
+                (isDarkMode ? Color.black : Color.white)
+                    .edgesIgnoringSafeArea(.all)
                 
                 ScrollView {
                     VStack(spacing: 25) {
                         VStack(spacing: 15) {
-                            Button {
+                            Button(action: {
                                 locationManager.requestLocation()
-                            } label: {
+                            }) {
                                 HStack {
                                     if locationManager.isLoadingLocation {
                                         ProgressView()
-                                            .tint(Color(red: 0.0, green: 0.78, blue: 0.58))
+                                            .progressViewStyle(CircularProgressViewStyle(tint: Color(red: 0.0, green: 0.78, blue: 0.58)))
                                     } else {
                                         Image(systemName: "location.circle.fill")
-                                            .foregroundStyle(primaryGradient)
+                                            .foregroundColor(.blue)
                                             .font(.title2)
                                     }
                                     
                                     VStack(alignment: .leading) {
                                         Text("Usar mi ubicación actual")
                                             .font(.headline)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(isDarkMode ? .white : .black)
                                         Text("GPS")
                                             .font(.caption)
                                             .foregroundColor(.gray)
@@ -428,21 +439,21 @@ struct OriginSelectionSheet: View {
                             }
                             
                             if !locationManager.locationString.isEmpty && locationManager.locationString != "Trujillo" {
-                                Button {
+                                Button(action: {
                                     origin = locationManager.locationString
-                                    dismiss()
-                                } label: {
+                                    presentationMode.wrappedValue.dismiss()
+                                }) {
                                     HStack {
                                         Image(systemName: "checkmark.circle.fill")
                                             .foregroundColor(.green)
                                         Text("Detectado: \(locationManager.locationString)")
-                                            .foregroundColor(.black)
+                                            .foregroundColor(isDarkMode ? .white : .black)
                                         Spacer()
                                     }
                                     .padding()
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(Color.green.opacity(0.1))
+                                            .foregroundColor(Color.green.opacity(0.1))
                                     )
                                 }
                             }
@@ -454,24 +465,25 @@ struct OriginSelectionSheet: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Selecciona una agencia")
                                 .font(.headline)
+                                .foregroundColor(isDarkMode ? .white : .black)
                                 .padding(.horizontal, 20)
                             
                             ForEach(predefinedCities, id: \.self) { city in
-                                Button {
+                                Button(action: {
                                     origin = city
-                                    dismiss()
-                                } label: {
+                                    presentationMode.wrappedValue.dismiss()
+                                }) {
                                     HStack {
                                         Image(systemName: origin == city ? "checkmark.circle.fill" : "circle")
-                                            .foregroundStyle(primaryGradient)
+                                            .foregroundColor(.blue)
                                         Text(city)
-                                            .foregroundColor(.black)
+                                            .foregroundColor(isDarkMode ? .white : .black)
                                         Spacer()
                                     }
                                     .padding()
                                     .background(
                                         RoundedRectangle(cornerRadius: 12)
-                                            .fill(origin == city ? Color.gray.opacity(0.1) : Color.clear)
+                                            .foregroundColor(origin == city ? Color.gray.opacity(0.2) : Color.clear)
                                     )
                                 }
                             }
@@ -483,14 +495,13 @@ struct OriginSelectionSheet: View {
             }
             .navigationTitle("Selecciona tu origen")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Cerrar") {
-                        dismiss()
-                    }
-                    .foregroundStyle(primaryGradient)
+            .preferredColorScheme(isDarkMode ? .dark : .light)
+            .navigationBarItems(
+                trailing: Button("Cerrar") {
+                    presentationMode.wrappedValue.dismiss()
                 }
-            }
+                .foregroundColor(.blue)
+            )
         }
     }
 }

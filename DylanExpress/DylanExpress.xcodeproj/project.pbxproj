@@ -15,10 +15,16 @@
 		FA0A15462ED781EC00AF332F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0A15452ED781EC00AF332F /* ContentView.swift */; };
 		FA0A15482ED781F300AF332F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0A15472ED781F300AF332F /* Assets.xcassets */; };
 		FA0A154B2ED781F300AF332F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA0A154A2ED781F300AF332F /* Preview Assets.xcassets */; };
+		FA1C5B8F2EF1A2D600A25849 /* FavoriteTripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C5B8E2EF1A2D600A25849 /* FavoriteTripsView.swift */; };
+		FA1C5B912EF1A38D00A25849 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C5B902EF1A38D00A25849 /* SettingsView.swift */; };
+		FA1C5B962EF2468100A25849 /* TripSimulationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C5B952EF2468100A25849 /* TripSimulationView.swift */; };
+		FA1C5B982EF2471700A25849 /* TripSimulationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C5B972EF2471700A25849 /* TripSimulationViewModel.swift */; };
 		FA4113E02EDA48A700CB2A5D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4113DF2EDA48A700CB2A5D /* Theme.swift */; };
 		FA528AC82EDBD197006AA5A2 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */; };
 		FA60EEE62EDA580B007EC497 /* TouristPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA60EEE52EDA580B007EC497 /* TouristPlaceView.swift */; };
 		FA60EEE92EDA91E3007EC497 /* CustomerSupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */; };
+		FA705F022EF2EA4B00C5380A /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA705F012EF2EA4B00C5380A /* RatingView.swift */; };
+		FA705F042EF2FB8800C5380A /* MapViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA705F032EF2FB8800C5380A /* MapViewContainer.swift */; };
 		FA813C562ED8D617002318EF /* MyTripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C552ED8D617002318EF /* MyTripsView.swift */; };
 		FA813C592ED8D653002318EF /* SearchTicketsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C582ED8D653002318EF /* SearchTicketsView.swift */; };
 		FA813C5B2ED8D68A002318EF /* BusSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */; };
@@ -36,6 +42,7 @@
 		FAE850402ED8421600D687BD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE8503F2ED8421600D687BD /* HomeView.swift */; };
 		FAE850442ED84F6A00D687BD /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE850432ED84F6900D687BD /* RootView.swift */; };
 		FAE8504A2ED8586500D687BD /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE850492ED8586500D687BD /* SplashView.swift */; };
+		FAF397742EF32B2500DB9713 /* ComplaintsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF397732EF32B2500DB9713 /* ComplaintsView.swift */; };
 		FAFA680F2EDB4C75009E3BCF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -46,10 +53,16 @@
 		FA0A15452ED781EC00AF332F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA0A15472ED781F300AF332F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA0A154A2ED781F300AF332F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		FA1C5B8E2EF1A2D600A25849 /* FavoriteTripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTripsView.swift; sourceTree = "<group>"; };
+		FA1C5B902EF1A38D00A25849 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FA1C5B952EF2468100A25849 /* TripSimulationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSimulationView.swift; sourceTree = "<group>"; };
+		FA1C5B972EF2471700A25849 /* TripSimulationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSimulationViewModel.swift; sourceTree = "<group>"; };
 		FA4113DF2EDA48A700CB2A5D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		FA60EEE52EDA580B007EC497 /* TouristPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouristPlaceView.swift; sourceTree = "<group>"; };
 		FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerSupportView.swift; sourceTree = "<group>"; };
+		FA705F012EF2EA4B00C5380A /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		FA705F032EF2FB8800C5380A /* MapViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewContainer.swift; sourceTree = "<group>"; };
 		FA813C552ED8D617002318EF /* MyTripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTripsView.swift; sourceTree = "<group>"; };
 		FA813C582ED8D653002318EF /* SearchTicketsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTicketsView.swift; sourceTree = "<group>"; };
 		FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusSelectionView.swift; sourceTree = "<group>"; };
@@ -68,6 +81,7 @@
 		FAE850432ED84F6900D687BD /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		FAE850492ED8586500D687BD /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		FAE8504D2ED860D500D687BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		FAF397732EF32B2500DB9713 /* ComplaintsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsView.swift; sourceTree = "<group>"; };
 		FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,9 +128,11 @@
 		FA0A15422ED781EC00AF332F /* DylanExpress */ = {
 			isa = PBXGroup;
 			children = (
-				FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */,
-				FA0518142EDB8B6F001F20B7 /* animation */,
+				FAE8504D2ED860D500D687BD /* Info.plist */,
 				FAFA680E2EDB4C74009E3BCF /* GoogleService-Info.plist */,
+				FA528AC72EDBD197006AA5A2 /* Launch Screen.storyboard */,
+				FA1C5B942EF2462500A25849 /* trips */,
+				FA0518142EDB8B6F001F20B7 /* animation */,
 				FA60EEE72EDA912F007EC497 /*  Customersupport */,
 				FA4383B22EDA28D4002D0680 /* Tourist */,
 				FA813C712ED91DB7002318EF /* login */,
@@ -124,7 +140,6 @@
 				FA813C5E2ED8D6C5002318EF /* Profile */,
 				FA813C572ED8D638002318EF /* Booking */,
 				FA813C542ED8D5E8002318EF /* Home */,
-				FAE8504D2ED860D500D687BD /* Info.plist */,
 				FA0A15472ED781F300AF332F /* Assets.xcassets */,
 				FA0A15492ED781F300AF332F /* Preview Content */,
 			);
@@ -139,6 +154,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		FA1C5B942EF2462500A25849 /* trips */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C5B952EF2468100A25849 /* TripSimulationView.swift */,
+				FA1C5B972EF2471700A25849 /* TripSimulationViewModel.swift */,
+				FA705F012EF2EA4B00C5380A /* RatingView.swift */,
+				FA705F032EF2FB8800C5380A /* MapViewContainer.swift */,
+			);
+			path = trips;
+			sourceTree = "<group>";
+		};
 		FA4383B22EDA28D4002D0680 /* Tourist */ = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				FA60EEE82EDA91E3007EC497 /* CustomerSupportView.swift */,
+				FAF397732EF32B2500DB9713 /* ComplaintsView.swift */,
 			);
 			path = " Customersupport";
 			sourceTree = "<group>";
@@ -174,6 +201,7 @@
 				FA813C612ED8DDC7002318EF /* TicketDetailView.swift */,
 				FA813C5A2ED8D68A002318EF /* BusSelectionView.swift */,
 				FA813C5C2ED8D6A6002318EF /* BookingConfirmationView.swift */,
+				FA1C5B8E2EF1A2D600A25849 /* FavoriteTripsView.swift */,
 			);
 			path = Booking;
 			sourceTree = "<group>";
@@ -182,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				FA813C5F2ED8D6DA002318EF /* ProfileView.swift */,
+				FA1C5B902EF1A38D00A25849 /* SettingsView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -291,27 +320,34 @@
 			files = (
 				FA813C592ED8D653002318EF /* SearchTicketsView.swift in Sources */,
 				FA813C602ED8D6DA002318EF /* ProfileView.swift in Sources */,
+				FA1C5B912EF1A38D00A25849 /* SettingsView.swift in Sources */,
 				FA813C6A2ED8E1D8002318EF /* CardPaymentView .swift in Sources */,
 				FA813C642ED8E0FE002318EF /* PaymentMethodsView.swift in Sources */,
 				FA0A15462ED781EC00AF332F /* ContentView.swift in Sources */,
 				FA4113E02EDA48A700CB2A5D /* Theme.swift in Sources */,
 				FAE8504A2ED8586500D687BD /* SplashView.swift in Sources */,
+				FA705F042EF2FB8800C5380A /* MapViewContainer.swift in Sources */,
 				FAE8503E2ED83C8000D687BD /* RegisterView.swift in Sources */,
 				FA813C622ED8DDC7002318EF /* TicketDetailView.swift in Sources */,
 				FA813C6C2ED8E245002318EF /* CashPaymentView.swift in Sources */,
 				FA0A15442ED781EC00AF332F /* DylanExpressApp.swift in Sources */,
 				FA813C702ED90278002318EF /* BookingData.swift in Sources */,
 				FA813C682ED8E1A5002318EF /* YapePaymentView.swift in Sources */,
+				FA1C5B962EF2468100A25849 /* TripSimulationView.swift in Sources */,
+				FAF397742EF32B2500DB9713 /* ComplaintsView.swift in Sources */,
 				FA813C5D2ED8D6A6002318EF /* BookingConfirmationView.swift in Sources */,
 				FAE850402ED8421600D687BD /* HomeView.swift in Sources */,
 				FAE850442ED84F6A00D687BD /* RootView.swift in Sources */,
 				FA813C562ED8D617002318EF /* MyTripsView.swift in Sources */,
+				FA1C5B982EF2471700A25849 /* TripSimulationViewModel.swift in Sources */,
 				FAE8503C2ED83C3900D687BD /* LoginView.swift in Sources */,
 				FAE8503A2ED83BEE00D687BD /* AuthViewModel.swift in Sources */,
 				FA813C5B2ED8D68A002318EF /* BusSelectionView.swift in Sources */,
 				FA60EEE92EDA91E3007EC497 /* CustomerSupportView.swift in Sources */,
 				FA60EEE62EDA580B007EC497 /* TouristPlaceView.swift in Sources */,
 				FA0518132EDB7242001F20B7 /* AppDelegate.swift in Sources */,
+				FA1C5B8F2EF1A2D600A25849 /* FavoriteTripsView.swift in Sources */,
+				FA705F022EF2EA4B00C5380A /* RatingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,8 @@ import SwiftUI
 import FirebaseFirestore
 
 struct CardPaymentView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let bookingId: String
     let origin: String
     let destination: String
@@ -18,11 +20,12 @@ struct CardPaymentView: View {
     @State private var showConfirmation = false
     @State private var isProcessing = false
     @State private var paymentCompleted = false
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack(spacing: 25) {
@@ -33,6 +36,7 @@ struct CardPaymentView: View {
                     
                     Text("Pago con Tarjeta")
                         .font(.title.bold())
+                        .foregroundColor(isDarkMode ? .white : .black)
                     
                     Text("S/ \(String(format: "%.2f", price))")
                         .font(.system(size: 40, weight: .bold))
@@ -46,14 +50,10 @@ struct CardPaymentView: View {
                             
                             HStack {
                                 Image(systemName: "creditcard.fill")
-                                    .foregroundStyle(primaryGradient)
+                                    .foregroundColor(.blue)
                                 TextField("1234 5678 9012 3456", text: $cardNumber)
                                     .keyboardType(.numberPad)
-                                    .onChange(of: cardNumber) { newValue in
-                                        if newValue.count > 16 {
-                                            cardNumber = String(newValue.prefix(16))
-                                        }
-                                    }
+                                    .foregroundColor(isDarkMode ? .white : .black)
                             }
                             .padding()
                             .background(
@@ -69,9 +69,9 @@ struct CardPaymentView: View {
                             
                             HStack {
                                 Image(systemName: "person.fill")
-                                    .foregroundStyle(primaryGradient)
+                                    .foregroundColor(.blue)
                                 TextField("JUAN PEREZ", text: $cardName)
-                                    .textInputAutocapitalization(.characters)
+                                    .foregroundColor(isDarkMode ? .white : .black)
                             }
                             .padding()
                             .background(
@@ -88,14 +88,10 @@ struct CardPaymentView: View {
                                 
                                 HStack {
                                     Image(systemName: "calendar")
-                                        .foregroundStyle(primaryGradient)
+                                        .foregroundColor(.blue)
                                     TextField("MM/AA", text: $expiryDate)
                                         .keyboardType(.numberPad)
-                                        .onChange(of: expiryDate) { newValue in
-                                            if newValue.count > 5 {
-                                                expiryDate = String(newValue.prefix(5))
-                                            }
-                                        }
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                                 .padding()
                                 .background(
@@ -111,14 +107,10 @@ struct CardPaymentView: View {
                                 
                                 HStack {
                                     Image(systemName: "lock.fill")
-                                        .foregroundStyle(primaryGradient)
+                                        .foregroundColor(.blue)
                                     SecureField("123", text: $cvv)
                                         .keyboardType(.numberPad)
-                                        .onChange(of: cvv) { newValue in
-                                            if newValue.count > 3 {
-                                                cvv = String(newValue.prefix(3))
-                                            }
-                                        }
+                                        .foregroundColor(isDarkMode ? .white : .black)
                                 }
                                 .padding()
                                 .background(
@@ -130,12 +122,12 @@ struct CardPaymentView: View {
                     }
                     .padding(.horizontal, 25)
                     
-                    Button {
+                    Button(action: {
                         processPayment()
-                    } label: {
+                    }) {
                         if isProcessing {
                             ProgressView()
-                                .tint(.white)
+                                .progressViewStyle(CircularProgressViewStyle(tint: .white))
                         } else {
                             HStack {
                                 Image(systemName: "checkmark.circle.fill")
@@ -160,12 +152,12 @@ struct CardPaymentView: View {
             if isProcessing {
                 ZStack {
                     Color.black.opacity(0.4)
-                        .ignoresSafeArea()
+                        .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 20) {
                         ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .blue))
                             .scaleEffect(1.5)
-                            .tint(.blue)
                         
                         Text("Procesando pago...")
                             .font(.title2.bold())
@@ -174,7 +166,7 @@ struct CardPaymentView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                 }
@@ -184,18 +176,16 @@ struct CardPaymentView: View {
             if paymentCompleted {
                 ZStack {
                     Color.black.opacity(0.4)
-                        .ignoresSafeArea()
+                        .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 20) {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 80))
                             .foregroundColor(.green)
-                            .scaleEffect(paymentCompleted ? 1 : 0.5)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.6), value: paymentCompleted)
                         
                         Text("¡Pago realizado!")
                             .font(.title.bold())
-                            .foregroundColor(.black)
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
                         Text("Tu reserva ha sido confirmada")
                             .font(.subheadline)
@@ -204,7 +194,7 @@ struct CardPaymentView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                 }
@@ -213,6 +203,7 @@ struct CardPaymentView: View {
         }
         .navigationTitle("Tarjeta")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .navigationBarBackButtonHidden(isProcessing || paymentCompleted)
     }
     
@@ -221,26 +212,20 @@ struct CardPaymentView: View {
     }
     
     func processPayment() {
-        withAnimation {
-            isProcessing = true
-        }
+        isProcessing = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             Firestore.firestore().collection("bookings").document(bookingId).updateData([
                 "status": "paid",
                 "paymentMethod": "card"
             ]) { error in
-                withAnimation {
-                    isProcessing = false
-                }
+                isProcessing = false
                 
                 if error == nil {
-                    withAnimation {
-                        paymentCompleted = true
-                    }
+                    paymentCompleted = true
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        dismiss()
+                        presentationMode.wrappedValue.dismiss()
                     }
                 }
             }

@@ -10,6 +10,11 @@ let primaryGradient = LinearGradient(
     endPoint: .trailing
 )
 
+let startTripGradient = LinearGradient(
+    gradient: Gradient(colors: [.yellow, .green, .cyan]),
+    startPoint: .leading,
+    endPoint: .trailing
+)
 extension Color {
     static let primaryGreen = Color(red: 0.0, green: 0.78, blue: 0.58)
     static let primaryYellow = Color(red: 1, green: 0.85, blue: 0.0)

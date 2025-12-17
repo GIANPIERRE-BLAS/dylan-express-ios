@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct CustomerSupportView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var showingFAQ = false
+    @State private var isLoading = true
     
     let faqItems: [FAQItem] = [
         FAQItem(question: "¿Cómo puedo reservar un pasaje?", answer: "Puedes reservar un pasaje desde la pestaña 'Buscar', seleccionando tu origen, destino, fecha y hora de viaje. Luego elige tu asiento y procede al pago."),
@@ -14,188 +16,267 @@ struct CustomerSupportView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 25) {
-                    
-                    VStack(spacing: 15) {
-                        ZStack {
-                            Circle()
-                                .fill(Color(red: 0.0, green: 0.78, blue: 0.58).opacity(0.1))
-                                .frame(width: 100, height: 100)
-                            
-                            Image(systemName: "headphones.circle.fill")
-                                .font(.system(size: 50))
-                                .foregroundStyle(primaryGradient)
-                        }
+            if isLoading {
+                VStack(spacing: 20) {
+                    ZStack {
+                        Circle()
+                            .foregroundColor(.clear)
+                            .background(primaryGradient)
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
                         
-                        Text("¿Cómo podemos ayudarte?")
-                            .font(.title2.bold())
-                            .foregroundColor(.black)
-                        
-                        Text("Estamos aquí para resolver todas tus dudas")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .multilineTextAlignment(.center)
-                    }
-                    .padding(.top, 20)
-                    .padding(.horizontal, 20)
-                    
-                    VStack(spacing: 15) {
-                        Text("Contacto Directo")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 20)
-                        
-                        ContactButtonView(
-                            color: .green,
-                            systemIcon: "message.fill",
-                            title: "WhatsApp",
-                            subtitle: "+51 914 897 970",
-                            action: { ContactActions.openWhatsApp(number: "51914897970") }
-                        )
-                        .padding(.horizontal, 20)
-                        
-                        ContactButtonView(
-                            color: .blue,
-                            systemIcon: "phone.fill",
-                            title: "Llamar",
-                            subtitle: "+51 914 897 970",
-                            action: { ContactActions.call(number: "51914897970") }
-                        )
-                        .padding(.horizontal, 20)
-                        
-                        ContactButtonView(
-                            color: .orange,
-                            systemIcon: "envelope.fill",
-                            title: "Correo Electrónico",
-                            subtitle: "hpozoguevara@gmail.com",
-                            action: { ContactActions.sendEmail(to: "hpozoguevara@gmail.com") }
-                        )
-                        .padding(.horizontal, 20)
+                        Image(systemName: "headphones.circle.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.white)
                     }
                     
-                    Divider()
-                        .padding(.horizontal, 20)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.primaryGreen))
                     
-                    VStack(spacing: 15) {
-                        Text("Nuestra Ubicación")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal, 20)
+                    Text("Cargando soporte...")
+                        .font(.subheadline)
+                        .foregroundColor(isDarkMode ? .white.opacity(0.7) : .gray)
+                }
+            } else {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 25) {
                         
-                        HStack(spacing: 15) {
+                        VStack(spacing: 15) {
                             ZStack {
                                 Circle()
-                                    .fill(Color.red.opacity(0.1))
-                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(Color(red: 0.0, green: 0.78, blue: 0.58).opacity(0.2))
+                                    .frame(width: 100, height: 100)
                                 
-                                Image(systemName: "mappin.circle.fill")
-                                    .font(.title3)
-                                    .foregroundColor(.red)
+                                Image(systemName: "headphones.circle.fill")
+                                    .font(.system(size: 50))
+                                    .foregroundColor(.blue)
                             }
                             
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Trujillo, Perú")
-                                    .font(.headline)
-                                    .foregroundColor(.black)
-                                Text("Oficina en El Arco Porvenir")
-                                    .font(.subheadline)
+                            Text("¿Cómo podemos ayudarte?")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(isDarkMode ? .white : .black)
+                            
+                            Text("Estamos aquí para resolver todas tus dudas")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .multilineTextAlignment(.center)
+                        }
+                        .padding(.top, 20)
+                        .padding(.horizontal, 20)
+                        
+                        NavigationLink(destination: ComplaintsView()) {
+                            HStack(spacing: 15) {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(Color.red.opacity(0.1))
+                                        .frame(width: 50, height: 50)
+                                    Image(systemName: "exclamationmark.bubble.fill")
+                                        .font(.title3)
+                                        .foregroundColor(.red)
+                                }
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Libro de Reclamaciones")
+                                        .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
+                                    Text("Registra tu queja o reclamo")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Spacer()
+                                
+                                Image(systemName: "chevron.right")
                                     .foregroundColor(.gray)
                             }
-                            
-                            Spacer()
-                        }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-                        .shadow(color: .gray.opacity(0.1), radius: 5, x: 0, y: 2)
-                        .padding(.horizontal, 20)
-                    }
-                    
-                    Divider()
-                        .padding(.horizontal, 20)
-                    
-                    VStack(spacing: 15) {
-                        HStack {
-                            Text("Preguntas Frecuentes")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                            
-                            Spacer()
-                            
-                            Button {
-                                withAnimation(.spring(response: 0.3)) {
-                                    showingFAQ.toggle()
-                                }
-                            } label: {
-                                Image(systemName: showingFAQ ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
-                                    .foregroundStyle(primaryGradient)
-                                    .font(.title3)
-                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+                            )
+                            .shadow(color: isDarkMode ? .clear : .gray.opacity(0.1), radius: 5, x: 0, y: 2)
                         }
                         .padding(.horizontal, 20)
                         
-                        if showingFAQ {
-                            VStack(spacing: 12) {
-                                ForEach(faqItems) { item in
-                                    FAQCardView(item: item)
+                        VStack(spacing: 15) {
+                            Text("Contacto Directo")
+                                .font(.headline)
+                                .foregroundColor(isDarkMode ? .white : .black)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 20)
+                            
+                            ContactButtonView(
+                                color: .green,
+                                systemIcon: "message.fill",
+                                title: "WhatsApp",
+                                subtitle: "+51 914 897 970",
+                                isDarkMode: isDarkMode,
+                                action: { ContactActions.openWhatsApp(number: "51914897970") }
+                            )
+                            .padding(.horizontal, 20)
+                            
+                            ContactButtonView(
+                                color: .blue,
+                                systemIcon: "phone.fill",
+                                title: "Llamar",
+                                subtitle: "+51 914 897 970",
+                                isDarkMode: isDarkMode,
+                                action: { ContactActions.call(number: "51914897970") }
+                            )
+                            .padding(.horizontal, 20)
+                            
+                            ContactButtonView(
+                                color: .orange,
+                                systemIcon: "envelope.fill",
+                                title: "Correo Electrónico",
+                                subtitle: "hpozoguevara@gmail.com",
+                                isDarkMode: isDarkMode,
+                                action: { ContactActions.sendEmail(to: "hpozoguevara@gmail.com") }
+                            )
+                            .padding(.horizontal, 20)
+                        }
+                        
+                        Divider()
+                            .padding(.horizontal, 20)
+                        
+                        VStack(spacing: 15) {
+                            Text("Nuestra Ubicación")
+                                .font(.headline)
+                                .foregroundColor(isDarkMode ? .white : .black)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 20)
+                            
+                            HStack(spacing: 15) {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(Color.red.opacity(0.1))
+                                        .frame(width: 50, height: 50)
+                                    
+                                    Image(systemName: "mappin.circle.fill")
+                                        .font(.title3)
+                                        .foregroundColor(.red)
+                                }
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Trujillo, Perú")
+                                        .font(.headline)
+                                        .foregroundColor(isDarkMode ? .white : .black)
+                                    Text("Oficina en El Arco Porvenir")
+                                        .font(.subheadline)
+                                        .foregroundColor(.gray)
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+                            )
+                            .shadow(color: isDarkMode ? .clear : .gray.opacity(0.1), radius: 5, x: 0, y: 2)
+                            .padding(.horizontal, 20)
+                        }
+                        
+                        Divider()
+                            .padding(.horizontal, 20)
+                        
+                        VStack(spacing: 15) {
+                            HStack {
+                                Text("Preguntas Frecuentes")
+                                    .font(.headline)
+                                    .foregroundColor(isDarkMode ? .white : .black)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    withAnimation {
+                                        showingFAQ.toggle()
+                                    }
+                                }) {
+                                    Image(systemName: showingFAQ ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                                        .foregroundColor(.blue)
+                                        .font(.title3)
                                 }
                             }
                             .padding(.horizontal, 20)
-                            .transition(.opacity.combined(with: .scale))
+                            
+                            if showingFAQ {
+                                VStack(spacing: 12) {
+                                    ForEach(faqItems) { item in
+                                        FAQCardView(item: item, isDarkMode: isDarkMode)
+                                    }
+                                }
+                                .padding(.horizontal, 20)
+                                .transition(.opacity)
+                            }
                         }
-                    }
-                    
-                    Divider()
-                        .padding(.horizontal, 20)
-                    
-                    VStack(spacing: 15) {
-                        Text("Políticas de Cancelación")
-                            .font(.headline)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Divider()
                             .padding(.horizontal, 20)
                         
-                        VStack(alignment: .leading, spacing: 15) {
-                            PolicyItemView(icon: "checkmark.circle.fill", color: .green, title: "Cancelación con más de 24 horas", description: "Reembolso del 100% del pasaje.")
-                            PolicyItemView(icon: "clock.fill", color: .orange, title: "Cancelación entre 12-24 horas", description: "Reembolso del 50%.")
-                            PolicyItemView(icon: "xmark.circle.fill", color: .red, title: "Menos de 12 horas", description: "No hay reembolso.")
-                            PolicyItemView(icon: "arrow.triangle.2.circlepath.circle.fill", color: .blue, title: "Cambio de fecha", description: "Sin costo hasta 12 horas antes.")
+                        VStack(spacing: 15) {
+                            Text("Políticas de Cancelación")
+                                .font(.headline)
+                                .foregroundColor(isDarkMode ? .white : .black)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 20)
+                            
+                            VStack(alignment: .leading, spacing: 15) {
+                                PolicyItemView(icon: "checkmark.circle.fill", color: .green, title: "Cancelación con más de 24 horas", description: "Reembolso del 100% del pasaje.", isDarkMode: isDarkMode)
+                                PolicyItemView(icon: "clock.fill", color: .orange, title: "Cancelación entre 12-24 horas", description: "Reembolso del 50%.", isDarkMode: isDarkMode)
+                                PolicyItemView(icon: "xmark.circle.fill", color: .red, title: "Menos de 12 horas", description: "No hay reembolso.", isDarkMode: isDarkMode)
+                                PolicyItemView(icon: "arrow.triangle.2.circlepath.circle.fill", color: .blue, title: "Cambio de fecha", description: "Sin costo hasta 12 horas antes.", isDarkMode: isDarkMode)
+                            }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.gray.opacity(0.05))
+                            )
+                            .padding(.horizontal, 20)
+                        }
+                        
+                        VStack(spacing: 12) {
+                            HStack(spacing: 8) {
+                                Image(systemName: "clock.fill")
+                                    .foregroundColor(.blue)
+                                
+                                Text("Horario de Atención")
+                                    .font(.headline)
+                                    .foregroundColor(isDarkMode ? .white : .black)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Text("Lunes a Domingo: 6:00 AM - 10:00 PM")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         .padding()
-                        .background(RoundedRectangle(cornerRadius: 16).fill(Color.gray.opacity(0.05)))
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+                        )
+                        .shadow(color: isDarkMode ? .clear : .gray.opacity(0.1), radius: 5, x: 0, y: 2)
                         .padding(.horizontal, 20)
+                        .padding(.bottom, 40)
                     }
-                    
-                    VStack(spacing: 12) {
-                        HStack(spacing: 8) {
-                            Image(systemName: "clock.fill")
-                                .foregroundStyle(primaryGradient)
-                            
-                            Text("Horario de Atención")
-                                .font(.headline)
-                                .foregroundColor(.black)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Text("Lunes a Domingo: 6:00 AM - 10:00 PM")
-                            .font(.subheadline)
-                            .foregroundColor(.gray)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-                    .shadow(color: .gray.opacity(0.1), radius: 5, x: 0, y: 2)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 40)
                 }
             }
         }
         .navigationTitle("Soporte al Cliente")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation {
+                    isLoading = false
+                }
+            }
+        }
     }
 }
 
@@ -204,6 +285,7 @@ struct ContactButtonView: View {
     let systemIcon: String
     let title: String
     let subtitle: String
+    let isDarkMode: Bool
     let action: () -> Void
     
     var body: some View {
@@ -211,7 +293,7 @@ struct ContactButtonView: View {
             HStack(spacing: 15) {
                 ZStack {
                     Circle()
-                        .fill(color.opacity(0.1))
+                        .foregroundColor(color.opacity(0.1))
                         .frame(width: 50, height: 50)
                     Image(systemName: systemIcon)
                         .font(.title3)
@@ -221,7 +303,7 @@ struct ContactButtonView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
                         .font(.headline)
-                        .foregroundColor(.black)
+                        .foregroundColor(isDarkMode ? .white : .black)
                     Text(subtitle)
                         .font(.subheadline)
                         .foregroundColor(.gray)
@@ -233,8 +315,11 @@ struct ContactButtonView: View {
                     .foregroundColor(.gray)
             }
             .padding()
-            .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
-            .shadow(color: .gray.opacity(0.1), radius: 5, x: 0, y: 2)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+            )
+            .shadow(color: isDarkMode ? .clear : .gray.opacity(0.1), radius: 5, x: 0, y: 2)
         }
     }
 }
@@ -267,21 +352,23 @@ struct FAQItem: Identifiable {
 
 struct FAQCardView: View {
     let item: FAQItem
+    let isDarkMode: Bool
     @State private var isExpanded = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Button {
-                withAnimation(.spring(response: 0.3)) {
+            Button(action: {
+                withAnimation {
                     isExpanded.toggle()
                 }
-            } label: {
+            }) {
                 HStack {
                     Image(systemName: "questionmark.circle.fill")
-                        .foregroundStyle(primaryGradient)
+                        .foregroundColor(.blue)
                     Text(item.question)
-                        .font(.subheadline.bold())
-                        .foregroundColor(.black)
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundColor(isDarkMode ? .white : .black)
                         .multilineTextAlignment(.leading)
                     Spacer()
                     Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
@@ -298,8 +385,11 @@ struct FAQCardView: View {
             }
         }
         .padding()
-        .background(RoundedRectangle(cornerRadius: 12).fill(Color.white))
-        .shadow(color: .gray.opacity(0.1), radius: 3, x: 0, y: 1)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+        )
+        .shadow(color: isDarkMode ? .clear : .gray.opacity(0.1), radius: 3, x: 0, y: 1)
     }
 }
 
@@ -308,6 +398,7 @@ struct PolicyItemView: View {
     let color: Color
     let title: String
     let description: String
+    let isDarkMode: Bool
     
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -317,8 +408,9 @@ struct PolicyItemView: View {
                 .frame(width: 30)
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.subheadline.bold())
-                    .foregroundColor(.black)
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .foregroundColor(isDarkMode ? .white : .black)
                 Text(description)
                     .font(.caption)
                     .foregroundColor(.gray)

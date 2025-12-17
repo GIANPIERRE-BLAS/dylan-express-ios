@@ -5,6 +5,7 @@ import FirebaseCore
 struct DylanExpressApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @StateObject private var authViewModel = AuthViewModel()
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var showSplash = true
     
     init() {
@@ -14,7 +15,8 @@ struct DylanExpressApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                Color.white.ignoresSafeArea()
+                (isDarkMode ? Color.black : Color.white)
+                    .ignoresSafeArea()
                 
                 if showSplash {
                     SplashView(isActive: $showSplash)
@@ -23,6 +25,7 @@ struct DylanExpressApp: App {
                         .environmentObject(authViewModel)
                 }
             }
+            .preferredColorScheme(isDarkMode ? .dark : .light)
         }
     }
 }

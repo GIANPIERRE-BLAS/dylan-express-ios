@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct PaymentMethodsView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
+    
     let bookingId: String
     let origin: String
     let destination: String
@@ -13,7 +15,8 @@ struct PaymentMethodsView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack(spacing: 25) {
@@ -24,6 +27,7 @@ struct PaymentMethodsView: View {
                         
                         Text("Selecciona tu método de pago")
                             .font(.title2.bold())
+                            .foregroundColor(isDarkMode ? .white : .black)
                         
                         Text("Total: S/ \(String(format: "%.2f", price))")
                             .font(.title.bold())
@@ -34,18 +38,19 @@ struct PaymentMethodsView: View {
                     VStack(spacing: 12) {
                         Text("Resumen del viaje")
                             .font(.headline)
+                            .foregroundColor(isDarkMode ? .white : .black)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         VStack(spacing: 10) {
-                            SummaryRow(icon: "arrow.right", label: "Ruta", value: "\(origin) → \(destination)")
-                            SummaryRow(icon: "calendar", label: "Fecha", value: formatDate(date))
-                            SummaryRow(icon: "clock", label: "Hora", value: time)
-                            SummaryRow(icon: "airline.seat.recline.normal", label: "Asiento", value: "Nº \(seatNumber)")
+                            SummaryRow(icon: "arrow.right", label: "Ruta", value: "\(origin) → \(destination)", isDarkMode: isDarkMode)
+                            SummaryRow(icon: "calendar", label: "Fecha", value: formatDate(date), isDarkMode: isDarkMode)
+                            SummaryRow(icon: "clock", label: "Hora", value: time, isDarkMode: isDarkMode)
+                            SummaryRow(icon: "airline.seat.recline.normal", label: "Asiento", value: "Nº \(seatNumber)", isDarkMode: isDarkMode)
                         }
                         .padding()
                         .background(
                             RoundedRectangle(cornerRadius: 16)
-                                .fill(Color.gray.opacity(0.05))
+                                .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.gray.opacity(0.05))
                         )
                     }
                     .padding(.horizontal, 20)
@@ -53,6 +58,7 @@ struct PaymentMethodsView: View {
                     VStack(spacing: 15) {
                         Text("Métodos de pago")
                             .font(.headline)
+                            .foregroundColor(isDarkMode ? .white : .black)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal, 20)
                         
@@ -69,7 +75,8 @@ struct PaymentMethodsView: View {
                                 icon: "app.fill",
                                 title: "Yape",
                                 subtitle: "Pago rápido y seguro",
-                                color: Color.purple
+                                color: Color.purple,
+                                isDarkMode: isDarkMode
                             )
                         }
                         
@@ -86,7 +93,8 @@ struct PaymentMethodsView: View {
                                 icon: "creditcard.fill",
                                 title: "Tarjeta de Crédito/Débito",
                                 subtitle: "Visa, Mastercard, Amex",
-                                color: Color.blue
+                                color: Color.blue,
+                                isDarkMode: isDarkMode
                             )
                         }
                         
@@ -103,7 +111,8 @@ struct PaymentMethodsView: View {
                                 icon: "banknote.fill",
                                 title: "Efectivo",
                                 subtitle: "Pagar en agencia",
-                                color: Color.green
+                                color: Color.green,
+                                isDarkMode: isDarkMode
                             )
                         }
                     }
@@ -115,6 +124,7 @@ struct PaymentMethodsView: View {
         }
         .navigationTitle("Método de Pago")
         .navigationBarTitleDisplayMode(.inline)
+        .preferredColorScheme(isDarkMode ? .dark : .light)
     }
     
     func formatDate(_ date: Date) -> String {
@@ -129,6 +139,7 @@ struct PaymentMethodCard: View {
     let title: String
     let subtitle: String
     let color: Color
+    let isDarkMode: Bool
     
     var body: some View {
         HStack(spacing: 15) {
@@ -138,13 +149,13 @@ struct PaymentMethodCard: View {
                 .frame(width: 50, height: 50)
                 .background(
                     Circle()
-                        .fill(color.opacity(0.1))
+                        .foregroundColor(color.opacity(0.1))
                 )
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
                     .font(.headline)
-                    .foregroundColor(.black)
+                    .foregroundColor(isDarkMode ? .white : .black)
                 Text(subtitle)
                     .font(.caption)
                     .foregroundColor(.gray)
@@ -158,8 +169,8 @@ struct PaymentMethodCard: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white)
-                .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
+                .foregroundColor(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
+                .shadow(color: isDarkMode ? .clear : .gray.opacity(0.2), radius: 5, x: 0, y: 2)
         )
     }
 }
@@ -168,6 +179,7 @@ struct SummaryRow: View {
     let icon: String
     let label: String
     let value: String
+    let isDarkMode: Bool
     
     var body: some View {
         HStack {
@@ -180,6 +192,7 @@ struct SummaryRow: View {
             Spacer()
             Text(value)
                 .font(.subheadline.bold())
+                .foregroundColor(isDarkMode ? .white : .black)
         }
     }
 }

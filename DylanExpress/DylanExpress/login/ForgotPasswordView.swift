@@ -1,148 +1,3 @@
-import SwiftUI
-import FirebaseAuth
-
-struct LoginView: View {
-    @AppStorage("isDarkMode") private var isDarkMode = false
-    @EnvironmentObject var viewModel: AuthViewModel
-    @State private var email = ""
-    @State private var password = ""
-    @State private var showRegister = false
-   
-    var body: some View {
-        NavigationView {
-            ZStack {
-                (isDarkMode ? Color.black : Color.white)
-                    .ignoresSafeArea()
-               
-                VStack(spacing: 30) {
-                    Spacer()
-                   
-                    VStack(spacing: 8) {
-                        Image("logodylan")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 220)
-                       
-                        Text("Tu viaje comienza aquí")
-                            .font(.title3)
-                            .foregroundColor(isDarkMode ? .white.opacity(0.75) : .black.opacity(0.75))
-                    }
-                   
-                    VStack(spacing: 22) {
-                        CustomGradientField(
-                            title: "Correo Electrónico",
-                            text: $email,
-                            icon: "envelope",
-                            isDarkMode: isDarkMode
-                        )
-                       
-                        CustomGradientSecureField(
-                            title: "Contraseña",
-                            text: $password,
-                            icon: "lock",
-                            isDarkMode: isDarkMode
-                        )
-                       
-                        HStack {
-                            Spacer()
-                            NavigationLink(destination: ForgotPasswordView()) {
-                                Text("¿Olvidaste tu contraseña?")
-                                    .font(.caption)
-                                    .foregroundColor(.blue)
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 35)
-                   
-                    if !viewModel.errorMessage.isEmpty {
-                        Text(viewModel.errorMessage)
-                            .foregroundColor(.red)
-                            .font(.caption)
-                            .padding(.horizontal, 35)
-                    }
-                   
-                    Button {
-                        viewModel.login(email: email, password: password)
-                    } label: {
-                        if viewModel.isLoading {
-                            ProgressView().tint(.white)
-                        } else {
-                            Text("INICIAR SESIÓN")
-                                .foregroundColor(.white)
-                                .font(.headline)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(primaryGradient)
-                    .cornerRadius(16)
-                    .padding(.horizontal, 35)
-                    .disabled(viewModel.isLoading || email.isEmpty || password.isEmpty)
-                   
-                    HStack {
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 1)
-                        Text("O")
-                            .foregroundColor(.gray)
-                            .padding(.horizontal, 8)
-                        Rectangle()
-                            .fill(Color.gray.opacity(0.3))
-                            .frame(height: 1)
-                    }
-                    .padding(.horizontal, 35)
-                   
-                    Button {
-                        viewModel.signInWithGoogle()
-                    } label: {
-                        HStack {
-                            Image(systemName: "globe")
-                                .font(.title3)
-                            Text("Continuar con Google")
-                                .font(.headline)
-                        }
-                        .foregroundColor(isDarkMode ? .white : .black)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(isDarkMode ? Color.gray.opacity(0.2) : Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.gray.opacity(0.3), lineWidth: 1.5)
-                        )
-                        .cornerRadius(16)
-                    }
-                    .padding(.horizontal, 35)
-                    .disabled(viewModel.isLoading)
-                   
-                    Button {
-                        showRegister = true
-                    } label: {
-                        Text("Crear nueva cuenta")
-                            .foregroundColor(Color.blue)
-                            .font(.callout)
-                    }
-                   
-                    Spacer()
-                }
-               
-                if viewModel.userSession != nil {
-                    HomeView()
-                        .environmentObject(viewModel)
-                        .transition(.move(edge: .trailing))
-                }
-            }
-            .preferredColorScheme(isDarkMode ? .dark : .light)
-            .fullScreenCover(isPresented: $showRegister) {
-                RegisterView()
-                    .environmentObject(viewModel)
-            }
-            .onAppear {
-                viewModel.userSession = Auth.auth().currentUser
-            }
-        }
-    }
-}
-
 struct ForgotPasswordView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @Environment(\.dismiss) var dismiss
@@ -151,37 +6,36 @@ struct ForgotPasswordView: View {
     @State private var emailSent = false
     @State private var showError = false
     @State private var errorMessage = ""
-   
+
     var body: some View {
         ZStack {
             (isDarkMode ? Color.black : Color.white)
                 .edgesIgnoringSafeArea(.all)
-           
+
             ScrollView {
                 VStack(spacing: 30) {
-                   
                     Image(systemName: "lock.shield.fill")
                         .font(.system(size: 100))
                         .foregroundStyle(primaryGradient)
                         .padding(.top, 60)
-                   
+
                     VStack(spacing: 8) {
                         Text("Recuperar Contraseña")
                             .font(.title.bold())
                             .foregroundColor(isDarkMode ? .white : .black)
-                       
+
                         Text("Te enviaremos un enlace para restablecer tu contraseña")
                             .font(.subheadline)
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 40)
                     }
-                   
+
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Correo Electrónico")
                             .font(.subheadline.bold())
                             .foregroundColor(.gray)
-                       
+
                         HStack {
                             Image(systemName: "envelope.fill")
                                 .foregroundStyle(primaryGradient)
@@ -197,7 +51,7 @@ struct ForgotPasswordView: View {
                         )
                     }
                     .padding(.horizontal, 25)
-                   
+
                     if showError {
                         HStack(spacing: 8) {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -208,7 +62,7 @@ struct ForgotPasswordView: View {
                         }
                         .padding(.horizontal, 25)
                     }
-                   
+
                     VStack(spacing: 12) {
                         HStack(spacing: 8) {
                             Image(systemName: "checkmark.circle.fill")
@@ -217,7 +71,7 @@ struct ForgotPasswordView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
-                       
+
                         HStack(spacing: 8) {
                             Image(systemName: "paperplane.fill")
                                 .foregroundColor(.green)
@@ -225,7 +79,7 @@ struct ForgotPasswordView: View {
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                         }
-                       
+
                         HStack(spacing: 8) {
                             Image(systemName: "lock.rotation")
                                 .foregroundColor(.orange)
@@ -235,7 +89,7 @@ struct ForgotPasswordView: View {
                         }
                     }
                     .padding(.horizontal, 25)
-                   
+
                     Button(action: {
                         sendPasswordReset()
                     }) {
@@ -257,22 +111,22 @@ struct ForgotPasswordView: View {
                     .cornerRadius(16)
                     .padding(.horizontal, 25)
                     .disabled(email.isEmpty || isLoading)
-                   
-                    Spacer(minLength: 30)
+
+                    Spacer(minLength: 50)
                 }
             }
             .blur(radius: (isLoading || emailSent) ? 3 : 0)
-           
+
             if isLoading {
                 ZStack {
                     Color.black.opacity(0.4)
                         .edgesIgnoringSafeArea(.all)
-                   
+
                     VStack(spacing: 20) {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .purple))
                             .scaleEffect(1.5)
-                       
+
                         Text("Enviando correo...")
                             .font(.title2.bold())
                             .foregroundColor(.white)
@@ -280,41 +134,41 @@ struct ForgotPasswordView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(isDarkMode ? Color.black.opacity(0.8) : Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                 }
                 .transition(.opacity)
             }
-           
+
             if emailSent {
                 ZStack {
                     Color.black.opacity(0.4)
                         .edgesIgnoringSafeArea(.all)
-                   
+
                     VStack(spacing: 20) {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.system(size: 80))
                             .foregroundColor(.green)
-                       
+
                         Text("¡Correo Enviado!")
                             .font(.title.bold())
                             .foregroundColor(isDarkMode ? .white : .black)
-                       
-                        Text("Revisa tu bandeja de entrada")
+
+                        Text("Revisa tu bandeja de entrada y la carpeta de spam")
                             .font(.subheadline)
-                            .foregroundColor(isDarkMode ? .white.opacity(0.8) : .gray)
-                       
+                            .foregroundColor(.gray)
+
                         Text(email)
                             .font(.caption)
                             .foregroundColor(.blue)
                             .padding(.horizontal, 40)
                             .multilineTextAlignment(.center)
-                       
+
                         Button(action: {
                             dismiss()
                         }) {
-                            Text("VOLVER AL LOGIN")
+                            Text("Atrás")
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -328,7 +182,7 @@ struct ForgotPasswordView: View {
                     .padding(40)
                     .background(
                         RoundedRectangle(cornerRadius: 25)
-                            .fill(isDarkMode ? Color.black.opacity(0.8) : Color.white)
+                            .foregroundColor(isDarkMode ? Color.gray.opacity(0.95) : Color.white)
                             .shadow(radius: 20)
                     )
                     .padding(.horizontal, 30)
@@ -338,35 +192,28 @@ struct ForgotPasswordView: View {
         }
         .navigationTitle("Recuperar Contraseña")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    Text("Volver")
-                        .foregroundColor(.blue)
-                }
-            }
-        }
+        .navigationBarBackButtonHidden(isLoading || emailSent)
         .preferredColorScheme(isDarkMode ? .dark : .light)
     }
-   
+
     func sendPasswordReset() {
         guard !email.isEmpty else { return }
-       
+
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
-       
+
         if !emailPredicate.evaluate(with: email) {
             errorMessage = "Por favor ingresa un correo electrónico válido"
             showError = true
             return
         }
-       
+
         showError = false
         isLoading = true
-       
+
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             isLoading = false
-           
+
             if let error = error {
                 errorMessage = getErrorMessage(error)
                 showError = true
@@ -375,10 +222,10 @@ struct ForgotPasswordView: View {
             }
         }
     }
-   
+
     func getErrorMessage(_ error: Error) -> String {
         let nsError = error as NSError
-       
+
         switch nsError.code {
         case 17011:
             return "No existe una cuenta con este correo electrónico"
@@ -388,63 +235,6 @@ struct ForgotPasswordView: View {
             return "Error de conexión. Verifica tu internet"
         default:
             return "Ocurrió un error. Por favor intenta de nuevo"
-        }
-    }
-}
-
-struct CustomGradientField: View {
-    var title: String
-    @Binding var text: String
-    var icon: String
-    var keyboardType: UIKeyboardType = .default
-    var isDarkMode: Bool = false
-   
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-           
-            HStack {
-                TextField("", text: $text)
-                    .autocapitalization(.none)
-                    .keyboardType(keyboardType)
-                    .foregroundColor(isDarkMode ? .white : .black)
-                Image(systemName: icon)
-                    .foregroundStyle(primaryGradient)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(primaryGradient, lineWidth: 1.7)
-            )
-        }
-    }
-}
-
-struct CustomGradientSecureField: View {
-    var title: String
-    @Binding var text: String
-    var icon: String
-    var isDarkMode: Bool = false
-   
-    var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.gray)
-           
-            HStack {
-                SecureField("", text: $text)
-                    .foregroundColor(isDarkMode ? .white : .black)
-                Image(systemName: icon)
-                    .foregroundStyle(primaryGradient)
-            }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(primaryGradient, lineWidth: 1.7)
-            )
         }
     }
 }

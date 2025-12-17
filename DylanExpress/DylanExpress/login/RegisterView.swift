@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @EnvironmentObject var viewModel: AuthViewModel
     @State private var fullName = ""
     @State private var email = ""
@@ -12,7 +13,8 @@ struct RegisterView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
+            (isDarkMode ? Color.black : Color.white)
+                .ignoresSafeArea()
             
             ScrollView {
                 VStack(spacing: 30) {
@@ -27,41 +29,46 @@ struct RegisterView: View {
                         
                         Text("Crea tu cuenta")
                             .font(.title3)
-                            .foregroundColor(.black.opacity(0.75))
+                            .foregroundColor(isDarkMode ? .white.opacity(0.75) : .black.opacity(0.75))
                     }
                     
                     VStack(spacing: 22) {
                         CustomGradientField(
                             title: "Nombre Completo",
                             text: $fullName,
-                            icon: "person"
+                            icon: "person",
+                            isDarkMode: isDarkMode
                         )
                         
                         CustomGradientField(
                             title: "DNI",
                             text: $dni,
-                            icon: "creditcard"
+                            icon: "creditcard",
+                            keyboardType: .numberPad,
+                            isDarkMode: isDarkMode
                         )
-                        .keyboardType(.numberPad)
                         
                         CustomGradientField(
                             title: "Correo Electrónico",
                             text: $email,
-                            icon: "envelope"
+                            icon: "envelope",
+                            keyboardType: .emailAddress,
+                            isDarkMode: isDarkMode
                         )
-                        .keyboardType(.emailAddress)
                         
                         CustomGradientField(
                             title: "Teléfono",
                             text: $phone,
-                            icon: "phone"
+                            icon: "phone",
+                            keyboardType: .phonePad,
+                            isDarkMode: isDarkMode
                         )
-                        .keyboardType(.phonePad)
                         
                         CustomGradientSecureField(
                             title: "Contraseña",
                             text: $password,
-                            icon: "lock"
+                            icon: "lock",
+                            isDarkMode: isDarkMode
                         )
                     }
                     .padding(.horizontal, 35)
@@ -112,13 +119,12 @@ struct RegisterView: View {
                 }
             }
         }
-        
+        .preferredColorScheme(isDarkMode ? .dark : .light)
         .onChange(of: viewModel.registrationSuccess) { success in
             if success {
                 showSuccessAlert = true
             }
         }
-        
         .alert("¡Registro Exitoso!", isPresented: $showSuccessAlert) {
             Button("Iniciar Sesión") {
                 viewModel.registrationSuccess = false
